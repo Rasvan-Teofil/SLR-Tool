@@ -90,26 +90,26 @@ Ausgabe klar strukturiert, mit einem Block „Suchstring (Entwurf)“ zum Kopier
     },
     {
       id: "ss-prisma-doc",
-      title: "Suchprotokoll & PRISMA-Phasen formulieren",
+      title: "Draft search protocol & PRISMA sections",
       description:
-        "Formulierungshilfe für die dokumentierten PRISMA-Abschnitte (Identifikation bis Einschluss) in sachlichem Prosa-Stil.",
-      prompt: `Ich dokumentiere eine systematische Literaturrecherche und nutze PRISMA-orientierte Abschnitte in meinem Protokoll.
+        "Helps turn your notes into concise prose for the PRISMA fields (identification through included studies).",
+      prompt: `I am documenting a systematic literature search using PRISMA-style sections in my protocol.
 
-Aktueller Stand in Stichpunkten:
-- Datenbanken und Suchdaten: […]
-- Treffer nach Suche (roh): […]
-- Nach Dublettenbeseitigung: […]
-- Screening Titel/Abstract: geprüft / ausgeschlossen: […]
-- Volltext: angefordert / nicht erhalten / ausgeschlossen mit Gründen: […]
-- Eingeschlossen zur Extraktion: […]
+Current bullet notes:
+- Databases and search dates: […]
+- Records after search (raw): […]
+- After duplicate removal: […]
+- Title/abstract screening: screened / excluded: […]
+- Full text: obtained / not retrieved / excluded with reasons: […]
+- Included for data extraction: […]
 
-Bitte formulieren Sie daraus in neutral-wissenschaftlichem Deutsch kurze Fließtext-Absätze für:
-1) Identifikation der Treffer
-2) Screening auf Titel/Abstract-Ebene
-3) Eignungsprüfung am Volltext
-4) Final eingeschlossene Studien
+Please draft short, neutral academic paragraphs in English for:
+1) Identification of records
+2) Screening at title and abstract level
+3) Eligibility assessment with full texts
+4) Studies finally included
 
-Verwenden Sie keine erfundenen Zahlen — kennzeichnen Sie Platzhalter klar, wo noch Daten fehlen.`,
+Do not invent numbers—clearly mark placeholders where data are still missing.`,
       toolHref: "https://chat.openai.com/",
       toolLabel: "ChatGPT öffnen",
     },

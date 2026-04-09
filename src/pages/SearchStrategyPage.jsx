@@ -4,6 +4,8 @@ import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
+import PrismaDiagramImportCard from "../components/PrismaDiagramImportCard";
+import PrismaExternalEmbed from "../components/PrismaExternalEmbed";
 import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 
@@ -19,7 +21,7 @@ export default function SearchStrategyPage() {
       <PageHeader
         stepLabel="Schritt 2 – Suchstrategie"
         title="Suchstrategie und Dokumentation"
-        subtitle="Dokumentieren Sie Quellen, Suchstrings und Kriterien. Die PRISMA-Phasen fassen die Protokollierung strukturiert zusammen (ohne separates Flow-Diagramm)."
+        subtitle="Dokumentieren Sie Quellen, Suchstrings und Kriterien. PRISMA-Felder und das eingebettete Flowdiagramm-Tool ergänzen sich auf dieser Seite."
       />
 
       <PageToolGrid
@@ -30,11 +32,12 @@ export default function SearchStrategyPage() {
       <PromptSection pageKey="searchStrategy" />
 
       <div className="mb-6 space-y-6">
-        <InfoBox title="PRISMA-orientierte Struktur">
+        <InfoBox title="PRISMA-orientierte Felder">
           <p>
-            Nutzen Sie die vier Felder unten, um Treffer aus Identifikation, Screening, Eignungsprüfung und
-            finalen Einschluss kurz zu erfassen. Ergänzen Sie Details Ihres Suchprotokolls in den allgemeinen
-            Notizen.
+            Nutzen Sie die vier Freitextfelder für Identifikation, Screening, Eignungsprüfung (Volltext) und
+            eingeschlossene Studien. Darunter ist das externe PRISMA-Flowdiagramm-Tool eingebettet — Änderungen dort
+            werden nicht automatisch in diesem Arbeitsblatt gespeichert. Sie können das exportierte Diagramm (PNG)
+            anschließend hochladen; es erscheint in der Ergebnisübersicht.
           </p>
         </InfoBox>
 
@@ -79,45 +82,49 @@ export default function SearchStrategyPage() {
           </SectionCard>
         </div>
 
-        <SectionCard title="PRISMA: Identifikation (Treffer aus Recherche)">
+        <SectionCard title="PRISMA: Identification">
           <textarea
             value={ss.prismaIdentification}
             onChange={(e) => updateSearchStrategy({ prismaIdentification: e.target.value })}
             rows={3}
             className={fieldClass}
-            placeholder="Anzahl Datensätze je Quelle, Dubletten, gesamt identifiziert …"
+            placeholder="Records per source, duplicates, total identified …"
           />
         </SectionCard>
 
-        <SectionCard title="PRISMA: Screening (Titel/Abstract)">
+        <SectionCard title="PRISMA: Screening (title/abstract)">
           <textarea
             value={ss.prismaScreening}
             onChange={(e) => updateSearchStrategy({ prismaScreening: e.target.value })}
             rows={3}
             className={fieldClass}
-            placeholder="Geprüft, ausgeschlossen, ausgeschlossen mit Gründen …"
+            placeholder="Screened, excluded, reasons at title/abstract …"
           />
         </SectionCard>
 
-        <SectionCard title="PRISMA: Eignung (Volltext)">
+        <SectionCard title="PRISMA: Eligibility (full text)">
           <textarea
             value={ss.prismaEligibility}
             onChange={(e) => updateSearchStrategy({ prismaEligibility: e.target.value })}
             rows={3}
             className={fieldClass}
-            placeholder="Volltext angefordert/assessed, ausgeschlossen mit Gründen …"
+            placeholder="Full-text assessed, excluded, reasons …"
           />
         </SectionCard>
 
-        <SectionCard title="PRISMA: Eingeschlossene Studien">
+        <SectionCard title="PRISMA: Included studies">
           <textarea
             value={ss.prismaIncluded}
             onChange={(e) => updateSearchStrategy({ prismaIncluded: e.target.value })}
             rows={3}
             className={fieldClass}
-            placeholder="Final eingeschlossen, qualitative/quantitative Synthese …"
+            placeholder="Finally included, qualitative/quantitative synthesis …"
           />
         </SectionCard>
+
+        <PrismaExternalEmbed />
+
+        <PrismaDiagramImportCard />
 
         <SectionCard title="Weitere Notizen zum Protokoll">
           <textarea

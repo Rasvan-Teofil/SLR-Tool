@@ -4,7 +4,9 @@ import ConceptMatrixReadOnlyTable from "../components/ConceptMatrixReadOnlyTable
 import ExportButton from "../components/ExportButton";
 import PageLayout from "../components/PageLayout";
 import SectionCard from "../components/SectionCard";
+import UploadedDiagramPreview from "../components/UploadedDiagramPreview";
 import { brand } from "../config/brand";
+import { PRISMA_SHINY_APP_URL } from "../config/prismaExternalTool";
 import { useWorkshop } from "../context/WorkshopContext";
 import { computeGapItems, computeStatistics, normalizeRatings } from "../lib/conceptMatrix";
 
@@ -18,7 +20,9 @@ function ReportSection({ id, title, children, allowPageBreak = false }) {
       id={id}
       className={allowPageBreak ? "print:break-inside-auto" : "print:break-inside-avoid"}
     >
-      <h2 className="mb-3 border-b border-slate-200 pb-2 text-lg font-semibold text-slate-900">{title}</h2>
+      <h2 className="mb-3 border-b border-slate-200 pb-2 text-lg font-semibold text-slate-900 print:mb-2 print:border-slate-300 print:pb-1 print:text-base">
+        {title}
+      </h2>
       {children}
     </section>
   );
@@ -35,7 +39,6 @@ function Prose({ children, emptyText = "— Noch keine Inhalte erfasst —" }) {
 export default function DashboardPage() {
   const { state } = useWorkshop();
   const { researchQuestion, searchStrategy, conceptMatrix, synthesis } = state;
-
   const categories = conceptMatrix.categories;
   const studies = conceptMatrix.studies;
   const ratings = useMemo(
@@ -69,13 +72,15 @@ export default function DashboardPage() {
       </div>
 
       <ReportBody>
-        <header className="rounded-lg border border-slate-200 bg-slate-50 px-6 py-8 text-center print:border-slate-300 print:bg-white">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+        <header className="rounded-lg border border-slate-200 bg-slate-50 px-6 py-8 text-center print:border-slate-300 print:bg-white print:px-4 print:py-4">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 print:text-[10px]">
             {brand.productName} · Systematische Literaturübersicht
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">{conceptMatrix.title}</h1>
-          <p className="mt-2 text-sm text-slate-600">{conceptMatrix.subtitle}</p>
-          <p className="mt-4 text-xs text-slate-500">Stand: {today}</p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 print:mt-1 print:text-xl">
+            {conceptMatrix.title}
+          </h1>
+          <p className="mt-2 text-sm text-slate-600 print:mt-1 print:text-xs">{conceptMatrix.subtitle}</p>
+          <p className="mt-4 text-xs text-slate-500 print:mt-2">Stand: {today}</p>
         </header>
 
         <ReportSection id="forschungsfrage" title="1. Forschungsfrage">
@@ -116,17 +121,40 @@ export default function DashboardPage() {
             </SectionCard>
           </div>
           <div className="mt-4 space-y-4">
-            <SectionCard title="PRISMA: Identifikation">
+            <SectionCard title="PRISMA: Identification">
               <Prose>{searchStrategy.prismaIdentification}</Prose>
             </SectionCard>
             <SectionCard title="PRISMA: Screening">
               <Prose>{searchStrategy.prismaScreening}</Prose>
             </SectionCard>
-            <SectionCard title="PRISMA: Eignung (Volltext)">
+            <SectionCard title="PRISMA: Eligibility (full text)">
               <Prose>{searchStrategy.prismaEligibility}</Prose>
             </SectionCard>
-            <SectionCard title="PRISMA: Eingeschlossene Studien">
+            <SectionCard title="PRISMA: Included studies">
               <Prose>{searchStrategy.prismaIncluded}</Prose>
+            </SectionCard>
+            <SectionCard title="PRISMA flow diagram">
+              {searchStrategy.prismaDiagramAsset ? (
+                <div className="mb-4 print:break-inside-avoid">
+                  <UploadedDiagramPreview
+                    asset={searchStrategy.prismaDiagramAsset}
+                    variant="report"
+                  />
+                </div>
+              ) : null}
+              <p className="text-sm leading-relaxed text-slate-600">
+                Diagramm erstellen im{" "}
+                <a
+                  href={PRISMA_SHINY_APP_URL}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="font-medium text-indigo-700 underline decoration-indigo-400 underline-offset-2 hover:text-indigo-900"
+                >
+                  externen PRISMA-Tool
+                </a>
+                {" "}
+                (eingebettet unter „Suchstrategie“). Hochgeladenes PNG erscheint oben; ohne Upload nur dieser Hinweis.
+              </p>
             </SectionCard>
             {searchStrategy.notes ? (
               <SectionCard title="Weitere Protokollnotizen">

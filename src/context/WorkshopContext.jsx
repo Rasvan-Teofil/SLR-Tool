@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createEmptyRatings, createInitialConceptMatrixData } from "../lib/conceptMatrix";
+import { createInitialPrismaFlow, mergePrismaFlow } from "../lib/prismaFlowDefaults";
 
 export const LEGACY_MATRIX_STORAGE_KEY = "forschungsthema-matrix-data-v1";
 export const WORKSHOP_STORAGE_KEY = "slr-workshop-state-v1";
@@ -23,6 +24,9 @@ function createInitialSearchStrategy() {
     prismaEligibility: "",
     prismaIncluded: "",
     notes: "",
+    prismaFlow: createInitialPrismaFlow(),
+    /** @type {null | { fileName: string, mimeType: string, dataUrl: string, uploadedAt: string }} */
+    prismaDiagramAsset: null,
   };
 }
 
@@ -61,7 +65,15 @@ function loadPersistedState() {
         ...base,
         ...parsed,
         researchQuestion: { ...base.researchQuestion, ...(parsed.researchQuestion || {}) },
-        searchStrategy: { ...base.searchStrategy, ...(parsed.searchStrategy || {}) },
+        searchStrategy: {
+          ...base.searchStrategy,
+          ...(parsed.searchStrategy || {}),
+          prismaFlow: mergePrismaFlow(
+            parsed.searchStrategy && parsed.searchStrategy.prismaFlow
+              ? parsed.searchStrategy.prismaFlow
+              : null
+          ),
+        },
         synthesis: { ...base.synthesis, ...(parsed.synthesis || {}) },
         conceptMatrix:
           parsed.conceptMatrix && typeof parsed.conceptMatrix === "object"
@@ -114,8 +126,12 @@ export function WorkshopProvider({ children }) {
   useEffect(() => {
     try {
       localStorage.setItem(WORKSHOP_STORAGE_KEY, JSON.stringify(state));
-    } catch {
-      /* ignore quota */
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "QuotaExceededError") {
+        window.alert(
+          "Der Browser-Speicher ist voll (z. B. durch ein sehr großes PRISMA-PNG). Bitte eine kleinere PNG verwenden oder andere Inhalte kürzen."
+        );
+      }
     }
   }, [state]);
 

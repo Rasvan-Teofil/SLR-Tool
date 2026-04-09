@@ -18,22 +18,24 @@ export default function StepNavigation() {
 
   return (
     <nav
-      className="print:hidden mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+      className="rounded-lg bg-white/90 p-2.5 md:p-3"
       aria-label="SLR-Schritte"
     >
-      <div className="mb-4 flex flex-col gap-3 border-b border-slate-100 pb-4">
-        <BrandMark />
-        <p className="text-xs leading-snug text-slate-500">{brand.claim}</p>
+      <div className="mb-2 flex flex-col gap-1 border-b border-slate-100 pb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <BrandMark compact />
+        <p className="text-[11px] leading-snug text-slate-500 sm:max-w-[min(100%,20rem)] sm:self-center sm:text-right">
+          {brand.claim}
+        </p>
       </div>
 
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
-          <p className="text-sm font-semibold text-slate-800">
+      <div className="mb-2 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
+          <p className="truncate text-xs font-semibold text-slate-800 sm:text-sm">
             Schritt {currentIndex + 1} von {total}: {WORKSHOP_STEPS[currentIndex]?.label}
           </p>
         </div>
-        <div className="h-2 w-full max-w-md overflow-hidden rounded-full bg-slate-100 sm:ml-auto">
+        <div className="h-1.5 w-full max-w-md shrink-0 overflow-hidden rounded-full bg-slate-100 sm:ml-auto">
           <div
             className="h-full rounded-full bg-indigo-600 transition-all duration-300"
             style={{ width: `${progress}%` }}
@@ -45,13 +47,13 @@ export default function StepNavigation() {
         </div>
       </div>
 
-      <ul className="flex flex-wrap gap-2 border-t border-slate-100 pt-4">
+      <ul className="flex flex-wrap gap-1 border-t border-slate-100 pt-2">
         {WORKSHOP_STEPS.map((step, i) => (
           <li key={step.path}>
             <NavLink
               to={step.path}
               className={({ isActive }) =>
-                `inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition ${
+                `inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition md:px-2.5 md:text-[13px] ${
                   isActive
                     ? "bg-indigo-100 text-indigo-900"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -59,19 +61,19 @@ export default function StepNavigation() {
               }
               end={step.path === "/"}
             >
-              <span className="tabular-nums text-xs opacity-70">{i + 1}.</span>
+              <span className="tabular-nums text-[10px] opacity-70 md:text-xs">{i + 1}.</span>
               {step.label}
             </NavLink>
           </li>
         ))}
       </ul>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+      <div className="mt-2 flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2">
         <button
           type="button"
           onClick={() => goRelative(-1)}
           disabled={currentIndex === 0}
-          className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
         >
           Zurück
         </button>
@@ -79,13 +81,13 @@ export default function StepNavigation() {
           type="button"
           onClick={() => goRelative(1)}
           disabled={currentIndex >= WORKSHOP_STEPS.length - 1}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
         >
           Weiter
         </button>
         <NavLink
           to="/dashboard"
-          className="rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-900"
+          className="rounded-md bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-slate-900 md:text-sm"
         >
           Zur Auswertung
         </NavLink>

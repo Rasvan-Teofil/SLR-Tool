@@ -1,7 +1,9 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
+import PageToolGrid from "../components/PageToolGrid";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
+import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 
 export default function ResearchQuestionPage() {
@@ -13,7 +15,12 @@ export default function ResearchQuestionPage() {
       <PageHeader
         stepLabel="Schritt 1 – Forschungsfrage"
         title="Forschungsfrage formulieren"
-        subtitle="Definieren Sie Ihre Leitfrage und erste Suchbegriffe. Diese Grundlage steuert alle folgenden Schritte des Workshops."
+        subtitle="Definieren Sie Ihre Leitfrage und erste Suchbegriffe. Diese Grundlage steuert Ihre gesamte systematische Recherche und die spätere Auswertung."
+      />
+
+      <PageToolGrid
+        intro="Hilfen zur Schärfung und Strukturierung Ihrer Fragestellung — öffnen in einem neuen Tab."
+        tools={PAGE_TOOL_LINKS.researchQuestion}
       />
 
       <div className="mb-6 space-y-6">

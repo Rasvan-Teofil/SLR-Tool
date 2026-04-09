@@ -3,7 +3,8 @@ export const WORKSHOP_STEPS = [
   { path: "/suchstrategie", label: "Suchstrategie", short: "2" },
   { path: "/konzeptmatrix", label: "Konzeptmatrix", short: "3" },
   { path: "/synthese", label: "Synthese", short: "4" },
-  { path: "/dashboard", label: "Ergebnisübersicht", short: "5" },
+  { path: "/ressourcen", label: "Ressourcen & Tools", short: "5" },
+  { path: "/dashboard", label: "Ergebnisübersicht", short: "6" },
 ];
 
 export function stepIndexForPath(pathname) {

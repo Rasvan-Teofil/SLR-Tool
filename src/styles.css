@@ -35,9 +35,10 @@ body {
     color: #0f172a;
   }
 
+  /* Querformat: mehr Platz für breite Konzeptmatrix im PDF */
   @page {
-    margin: 1.5cm;
-    size: A4;
+    margin: 8mm;
+    size: A4 landscape;
   }
 
   .report-print-root {
@@ -46,5 +47,74 @@ body {
 
   a[href]::after {
     content: "";
+  }
+
+  /* Kompakte Konzeptmatrix nur im Druck (Informationsdichte) */
+  .matrix-print-root .matrix-print-table {
+    table-layout: fixed;
+    font-size: 7.5pt;
+    line-height: 1.15;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .matrix-print-root .matrix-print-corner {
+    width: 14%;
+    min-width: 54px;
+    padding: 2px 4px;
+    font-size: 7pt;
+    vertical-align: bottom;
+  }
+
+  .matrix-print-root .matrix-print-author {
+    padding: 2px 3px;
+    font-size: 7pt;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .matrix-print-root .matrix-print-cell {
+    width: 0.85rem;
+    padding: 0 1px;
+    font-size: 8pt;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .matrix-print-root .matrix-print-header-v {
+    padding: 1px;
+    vertical-align: bottom;
+    width: 0.85rem;
+    max-width: 0.95rem;
+  }
+
+  .matrix-print-root .matrix-print-header-v-inner {
+    display: block;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+    max-height: 52mm;
+    margin: 0 auto;
+    font-size: 6.5pt;
+    font-weight: 600;
+    line-height: 1.05;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .matrix-print-root .matrix-print-caption {
+    font-size: 8pt;
+  }
+
+  .matrix-print-root .matrix-print-legend {
+    font-size: 7pt;
+    line-height: 1.25;
+  }
+
+  .matrix-print-root .matrix-print-data-row {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }

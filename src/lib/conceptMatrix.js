@@ -31,6 +31,21 @@ export const STATUS_CONFIG = {
   },
 };
 
+/** Kompakte einzeilige Kodierung für Druck/PDF (nicht für Bildschirm-Matrix). */
+export function ratingToPrintSymbol(status) {
+  switch (status) {
+    case "full":
+      return "x";
+    case "partial":
+      return "/";
+    case "none":
+      return "−";
+    case "unrated":
+    default:
+      return "";
+  }
+}
+
 export function createInitialConceptMatrixData() {
   return {
     title: "Ihr Forschungsthema",

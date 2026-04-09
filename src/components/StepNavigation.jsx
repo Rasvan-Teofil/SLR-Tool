@@ -1,5 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { brand } from "../config/brand";
 import { WORKSHOP_STEPS, stepIndexForPath } from "../constants/workshopSteps";
+import BrandMark from "./BrandMark";
 
 export default function StepNavigation() {
   const location = useLocation();
@@ -17,11 +19,16 @@ export default function StepNavigation() {
   return (
     <nav
       className="print:hidden mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
-      aria-label="Workshop-Schritte"
+      aria-label="SLR-Schritte"
     >
+      <div className="mb-4 flex flex-col gap-3 border-b border-slate-100 pb-4">
+        <BrandMark />
+        <p className="text-xs leading-snug text-slate-500">{brand.claim}</p>
+      </div>
+
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Workshop-Fortschritt</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
           <p className="text-sm font-semibold text-slate-800">
             Schritt {currentIndex + 1} von {total}: {WORKSHOP_STEPS[currentIndex]?.label}
           </p>
@@ -80,7 +87,7 @@ export default function StepNavigation() {
           to="/dashboard"
           className="rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-900"
         >
-          Zum Dashboard
+          Zur Auswertung
         </NavLink>
       </div>
     </nav>

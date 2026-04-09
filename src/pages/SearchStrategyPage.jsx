@@ -1,7 +1,9 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
+import PageToolGrid from "../components/PageToolGrid";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
+import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 
 const fieldClass =
@@ -17,6 +19,11 @@ export default function SearchStrategyPage() {
         stepLabel="Schritt 2 – Suchstrategie"
         title="Suchstrategie und Dokumentation"
         subtitle="Dokumentieren Sie Quellen, Suchstrings und Kriterien. Die PRISMA-Phasen fassen die Protokollierung strukturiert zusammen (ohne separates Flow-Diagramm)."
+      />
+
+      <PageToolGrid
+        intro="Datenbanken, Operatoren und Reporting — ausgewählt für die Dokumentation Ihrer Suche."
+        tools={PAGE_TOOL_LINKS.searchStrategy}
       />
 
       <div className="mb-6 space-y-6">

@@ -1,7 +1,9 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
+import PageToolGrid from "../components/PageToolGrid";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
+import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 
 const fieldClass =
@@ -19,11 +21,16 @@ export default function SynthesisPage() {
         subtitle="Fassen Sie Muster, Widersprüche und offene Punkte aus der Literatur zusammen – als Überleitung zur dokumentierten Ergebnisübersicht."
       />
 
+      <PageToolGrid
+        intro="Methoden und Schreibhilfen für die Einordnung der Literatur — ergänzend zu Ihrer Matrix."
+        tools={PAGE_TOOL_LINKS.synthesis}
+      />
+
       <div className="mb-6 space-y-6">
         <InfoBox title="Arbeitshinweis">
           <p>
             Die Konzeptmatrix liefert strukturierte Evidenz zur Abdeckung von Konzepten; hier ordnen Sie die
-            inhaltliche Story und Ihre Interpretation für den Workshop-Report ein.
+            inhaltliche Story und Ihre Interpretation für die spätere Ergebnisübersicht und Ihre Arbeit ein.
           </p>
         </InfoBox>
 

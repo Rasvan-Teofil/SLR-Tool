@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import PageLayout from "../components/PageLayout";
+import PageToolGrid from "../components/PageToolGrid";
+import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 import {
   STATUS_CONFIG,
@@ -212,6 +214,11 @@ export default function ConceptMatrixPage() {
         />
       </header>
 
+      <PageToolGrid
+        intro="Screening-Hilfen, Originalquelle zur Konzeptmatrix und Werkzeuge für die Extraktion."
+        tools={PAGE_TOOL_LINKS.conceptMatrix}
+      />
+
       <section className="mb-4 rounded-lg border-l-4 border-blue-500 bg-slate-100 px-4 py-4">
         <div className="grid gap-6 md:grid-cols-2">
           <div>
@@ -275,7 +282,7 @@ export default function ConceptMatrixPage() {
           onClick={resetWorkshop}
           className="rounded-md bg-red-50 px-4 py-2 text-sm font-medium text-red-600 shadow-sm transition hover:bg-red-100"
         >
-          Gesamten Workshop zurücksetzen
+          Alle SLR-Daten zurücksetzen
         </button>
       </section>
 

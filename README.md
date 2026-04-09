@@ -1,6 +1,8 @@
-# SLR Workshop-Tool (Forschungsmatrix)
+# ReviewKompass — SLR-Begleiter
 
-Mehrseitige Workshop-Webanwendung für einen **systematischen Literaturreview-Prozess**: Forschungsfrage, Suchstrategie (inkl. PRISMA-orientierter Felder), Konzeptmatrix nach Webster & Watson, Synthese und eine **Ergebnisübersicht** zum Export (PDF über den Browser-Druckdialog).
+Mehrseitige Webanwendung als **Begleiter für systematische Literaturrecherche** (z. B. Masterarbeit): Forschungsfrage, Suchstrategie (inkl. PRISMA-orientierter Felder), Konzeptmatrix nach Webster & Watson, Synthese, **Ressourcen & Tools** und eine **Ergebnisübersicht** mit lesbarer Konzeptmatrix zum Export (PDF über den Browser-Druckdialog).
+
+Produktname und Claim sind in [`src/config/brand.js`](src/config/brand.js) zentral gepflegt; das HTML-`<title>` in [`index.html`](index.html) sollte bei Umbenennung mitgezogen werden.
 
 Stack: **React 18**, **Vite**, **Tailwind CSS v4**, **React Router**, reines Frontend (geeignet für **Vercel Hobby**).
 
@@ -8,31 +10,31 @@ Stack: **React 18**, **Vite**, **Tailwind CSS v4**, **React Router**, reines Fro
 
 ```
 src/
-  App.jsx                 # Router & Provider
+  App.jsx
   main.jsx
-  styles.css              # Tailwind + Druck-Styles (@media print)
+  styles.css
+  config/
+    brand.js              # Produktname, Claim, Monogramm
+    pageToolLinks.js      # Schnellzugriffe je Arbeitsschritt (1–4)
+    resourcesPage.js     # Inhalt Seite „Ressourcen & Tools“
   constants/
-    workshopSteps.js      # Schritt-Definitionen & Pfade
+    workshopSteps.js       # Schritt-Definitionen & Pfade (6 Schritte)
   context/
-    WorkshopContext.jsx   # Globaler Workshop-State, localStorage
+    WorkshopContext.jsx   # Globaler State, localStorage
   layout/
-    AppLayout.jsx         # Schritt-Navigation + Outlet
+    AppLayout.jsx
   lib/
-    conceptMatrix.js      # Matrix-Hilfsfunktionen (CSV, Abdeckung, Statistik)
+    conceptMatrix.js
   components/
-    PageLayout.jsx
-    PageHeader.jsx
-    StepNavigation.jsx
-    SectionCard.jsx
-    InfoBox.jsx
-    ExportButton.jsx
+    …
+    BrandMark.jsx
+    PageToolGrid.jsx
+    ConceptMatrixReadOnlyTable.jsx
   pages/
-    ResearchQuestionPage.jsx
-    SearchStrategyPage.jsx
-    ConceptMatrixPage.jsx
-    SynthesisPage.jsx
-    DashboardPage.jsx     # Report / Ergebnisübersicht
-vercel.json               # SPA-Rewrites für Client-Routing
+    …
+    ResourcesPage.jsx
+    DashboardPage.jsx
+vercel.json
 ```
 
 ## Lokale Nutzung
@@ -51,35 +53,35 @@ npm run preview
 
 ## Datenhaltung (localStorage)
 
-- Alle Workshop-Daten werden unter dem Schlüssel **`slr-workshop-state-v1`** im Browser gespeichert.
+- Anwendungsdaten werden unter **`slr-workshop-state-v1`** gespeichert (technischer Schlüsselname, unabhängig vom Produktnamen).
 - **Gerätelokal:** kein automatischer Abgleich zwischen Browsern oder Rechnern.
-- Bestehende reine Matrix-Daten aus älteren Versionen (`forschungsthema-matrix-data-v1`) werden beim **ersten Start** in den gemeinsamen Staat übernommen, sofern noch kein neuer Schlüssel existiert.
+- Ältere reine Matrix-Daten (`forschungsthema-matrix-data-v1`) werden beim **ersten Start** migriert, sofern noch kein neuer Speicher existiert.
 
 ## PDF-Export / Druck
 
-- Auf der Seite **Ergebnisübersicht** (Dashboard): Button **„Als PDF speichern (Druckdialog)“** ruft `window.print()` auf.
-- Im Druckdialog des Browsers **„Als PDF speichern“** / **Microsoft Print to PDF** wählen.
-- Schritt-Navigation und Steuer-Buttons sind für die Druckansicht ausgeblendet (`print:hidden`).
+- Auf der **Ergebnisübersicht**: Button **„Als PDF speichern (Druckdialog)“** ruft `window.print()` auf.
+- Im Druckdialog **„Als PDF speichern“** / **Microsoft Print to PDF** wählen.
 
 ## Deployment auf Vercel
 
 1. Repository zu **GitHub** pushen.
 2. In Vercel **Add New Project** → Repo auswählen.
-3. Framework: **Vite** (wird erkannt), Build: `npm run build`, Output: `dist`.
-4. [`vercel.json`](vercel.json) stellt sicher, dass **Deep-Links** (z. B. `/dashboard`) auf `index.html` auflösen (SPA).
+3. Framework: **Vite**, Build: `npm run build`, Output: `dist`.
+4. [`vercel.json`](vercel.json) für SPA-Deep-Links.
 
-Es werden **keine** bezahlten Datenbanken oder Vercel Postgres benötigt; die App läuft **ohne Backend**.
+Ohne Backend, ohne Vercel Postgres.
 
 ## Routen
 
-| Pfad               | Inhalt                |
-|--------------------|-----------------------|
-| `/`                | Forschungsfrage       |
-| `/suchstrategie`   | Suchstrategie / PRISMA-Felder |
-| `/konzeptmatrix`   | Konzeptmatrix         |
-| `/synthese`        | Synthese              |
-| `/dashboard`       | Ergebnisübersicht     |
+| Pfad             | Inhalt                    |
+|------------------|---------------------------|
+| `/`              | Forschungsfrage           |
+| `/suchstrategie` | Suchstrategie / PRISMA    |
+| `/konzeptmatrix` | Konzeptmatrix             |
+| `/synthese`      | Synthese                  |
+| `/ressourcen`    | Ressourcen & Tools        |
+| `/dashboard`     | Ergebnisübersicht / Report |
 
-## Lizenz / Hinweise
+## Hinweise
 
-Dieses Projekt dient Lehr- und Workshopzwecken. Inhalte der Konzeptmatrix orientieren sich an der gängigen Literaturstruktur (Webster & Watson); PRISMA-Felder dienen der strukturierten Protokollierung ohne Anspruch auf vollständiges PRISMA-Reporting.
+Inhalte und Methodik (Webster & Watson, PRISMA-Felder) dienen der strukturierten Arbeit; kein Ersatz für offizielle PRISMA-Reporting-Pflichten oder Prüfungsvorgaben Ihrer Hochschule.

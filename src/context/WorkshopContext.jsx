@@ -155,7 +155,7 @@ export function WorkshopProvider({ children }) {
   }, []);
 
   const resetWorkshop = useCallback(() => {
-    if (!window.confirm("Möchten Sie wirklich alle Workshop-Daten zurücksetzen?")) return;
+    if (!window.confirm("Möchten Sie wirklich alle gespeicherten SLR-Daten in diesem Browser zurücksetzen?")) return;
     setState(createInitialWorkshopState());
     try {
       localStorage.removeItem(LEGACY_MATRIX_STORAGE_KEY);

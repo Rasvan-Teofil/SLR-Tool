@@ -1,6 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
+import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
 import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
@@ -25,6 +26,8 @@ export default function SynthesisPage() {
         intro="Methoden und Schreibhilfen für die Einordnung der Literatur — ergänzend zu Ihrer Matrix."
         tools={PAGE_TOOL_LINKS.synthesis}
       />
+
+      <PromptSection pageKey="synthesis" />
 
       <div className="mb-6 space-y-6">
         <InfoBox title="Arbeitshinweis">

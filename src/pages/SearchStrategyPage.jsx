@@ -1,6 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
+import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
 import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
@@ -25,6 +26,8 @@ export default function SearchStrategyPage() {
         intro="Datenbanken, Operatoren und Reporting — ausgewählt für die Dokumentation Ihrer Suche."
         tools={PAGE_TOOL_LINKS.searchStrategy}
       />
+
+      <PromptSection pageKey="searchStrategy" />
 
       <div className="mb-6 space-y-6">
         <InfoBox title="PRISMA-orientierte Struktur">

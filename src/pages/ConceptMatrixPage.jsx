@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
+import PromptSection from "../components/PromptSection";
 import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
 import { useWorkshop } from "../context/WorkshopContext";
 import {
@@ -218,6 +219,8 @@ export default function ConceptMatrixPage() {
         intro="Screening-Hilfen, Originalquelle zur Konzeptmatrix und Werkzeuge für die Extraktion."
         tools={PAGE_TOOL_LINKS.conceptMatrix}
       />
+
+      <PromptSection pageKey="conceptMatrix" />
 
       <section className="mb-4 rounded-lg border-l-4 border-blue-500 bg-slate-100 px-4 py-4">
         <div className="grid gap-6 md:grid-cols-2">

@@ -1,6 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
+import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
 import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
@@ -22,6 +23,8 @@ export default function ResearchQuestionPage() {
         intro="Hilfen zur Schärfung und Strukturierung Ihrer Fragestellung — öffnen in einem neuen Tab."
         tools={PAGE_TOOL_LINKS.researchQuestion}
       />
+
+      <PromptSection pageKey="researchQuestion" />
 
       <div className="mb-6 space-y-6">
         <InfoBox title="Hinweis">

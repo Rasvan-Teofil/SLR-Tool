@@ -26,3 +26,25 @@ body,
 body {
   min-width: 320px;
 }
+
+@media print {
+  html,
+  body,
+  #root {
+    background: #fff !important;
+    color: #0f172a;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+
+  .report-print-root {
+    max-width: none;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}

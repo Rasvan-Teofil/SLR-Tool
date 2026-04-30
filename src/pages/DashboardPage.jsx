@@ -155,9 +155,21 @@ export default function DashboardPage() {
         </ReportSection>
 
         <ReportSection id="synthese" title="3. Synthese">
-          <SectionCard title="Kernerkenntnisse">
-            <Prose>{synthesis.notes}</Prose>
+          <SectionCard title="Kategorien (Synthese)">
+            <Prose emptyText="">{synthesis.categoryNotes}</Prose>
           </SectionCard>
+          {synthesis.codingGuide ? (
+            <div className="mt-4">
+              <SectionCard title="Kodierleitfaden">
+                <Prose emptyText="">{synthesis.codingGuide}</Prose>
+              </SectionCard>
+            </div>
+          ) : null}
+          <div className="mt-4">
+            <SectionCard title="Kernerkenntnisse">
+              <Prose>{synthesis.notes}</Prose>
+            </SectionCard>
+          </div>
           {synthesis.implications ? (
             <div className="mt-4">
               <SectionCard title="Implikationen & nächste Schritte">

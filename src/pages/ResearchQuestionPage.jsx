@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
-import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
+import SlrSuitabilityCheck from "../components/SlrSuitabilityCheck";
+import ResearchQuestionIdeationTools from "../components/ResearchQuestionIdeationTools";
 import { applyResearchQuestionPromptPlaceholders } from "../config/aiPrompts";
-import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 
 export default function ResearchQuestionPage() {
@@ -27,13 +27,11 @@ export default function ResearchQuestionPage() {
 
   return (
     <PageLayout>
-      <PageHeader
-        stepLabel="Schritt 1 – Forschungsfrage"
-        title="Forschungsfrage formulieren"
-        subtitle="Definieren Sie Ihre Leitfrage und erste Suchbegriffe. Diese Grundlage steuert Ihre gesamte systematische Recherche und die spätere Auswertung."
-      />
+      <PageHeader stepLabel="Schritt 1 – Forschungsfrage" title="Forschungsfrage formulieren" />
 
       <div className="mb-6 space-y-6">
+        <SlrSuitabilityCheck />
+
         <SectionCard title="Titel Ihrer Recherche">
           <p className="mb-2 text-sm text-slate-600">
             Dieser Name erscheint als Hauptüberschrift in der Ergebnisübersicht (Druck/PDF) und über der Konzeptmatrix
@@ -49,12 +47,7 @@ export default function ResearchQuestionPage() {
           />
         </SectionCard>
 
-        <InfoBox title="Hinweis">
-          <p>
-            Eine präzise Forschungsfrage hilft bei der Suchstrategie und bei der Einordnung der Literatur in der
-            Konzeptmatrix. Formulieren Sie PICOC/SPIDER o. ä. nach den Vorgaben Ihrer Veranstaltung.
-          </p>
-        </InfoBox>
+        <ResearchQuestionIdeationTools />
 
         <SectionCard title="Leitforschungsfrage">
           <textarea
@@ -87,12 +80,26 @@ export default function ResearchQuestionPage() {
         </SectionCard>
       </div>
 
-      <PageToolGrid
-        intro="KI-Tools zur Ideenfindung und Strukturierung Ihrer Forschungsfrage — öffnen in einem neuen Tab."
-        tools={PAGE_TOOL_LINKS.researchQuestion}
+      <InfoBox title="Hinweis">
+        <p>
+          Eine präzise Forschungsfrage hilft bei der Suchstrategie und bei der Einordnung der Literatur in der
+          Konzeptmatrix. Formulieren Sie PICOC/SPIDER o. ä. nach den Vorgaben Ihrer Veranstaltung.
+        </p>
+      </InfoBox>
+
+      <PromptSection
+        pageKey="researchQuestionIdeation"
+        sectionTitle="KI: Inhalte entwickeln"
+        intro="Prompts, um von Thema und ersten Ideen zu Leitfrage, Unterfragen und Begriffen zu kommen — Werte aus den Feldern oben werden eingesetzt, wo vorgesehen."
+        resolvePrompt={resolveResearchQuestionPrompt}
       />
 
-      <PromptSection pageKey="researchQuestion" resolvePrompt={resolveResearchQuestionPrompt} />
+      <PromptSection
+        pageKey="researchQuestionRefinement"
+        sectionTitle="KI: Inhalte prüfen und schärfen"
+        intro="Wenn du bereits Text in den Feldern hast: prüfen, präzisieren und auf SLR-Tauglichkeit trimmen."
+        resolvePrompt={resolveResearchQuestionPrompt}
+      />
     </PageLayout>
   );
 }

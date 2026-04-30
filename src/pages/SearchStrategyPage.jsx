@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
@@ -6,6 +7,7 @@ import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
 import PrismaDiagramImportCard from "../components/PrismaDiagramImportCard";
 import PrismaExternalEmbed from "../components/PrismaExternalEmbed";
+import { applySearchStrategyPromptPlaceholders } from "../config/aiPrompts";
 import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 
@@ -15,6 +17,15 @@ const fieldClass =
 export default function SearchStrategyPage() {
   const { state, updateSearchStrategy } = useWorkshop();
   const ss = state.searchStrategy;
+
+  const resolveSearchStrategyPrompt = useCallback(
+    (item) =>
+      applySearchStrategyPromptPlaceholders(item.prompt, {
+        researchQuestion: state.researchQuestion,
+        searchStrategy: ss,
+      }),
+    [state.researchQuestion, ss]
+  );
 
   return (
     <PageLayout>
@@ -29,7 +40,11 @@ export default function SearchStrategyPage() {
         tools={PAGE_TOOL_LINKS.searchStrategy}
       />
 
-      <PromptSection pageKey="searchStrategy" />
+      <PromptSection
+        pageKey="searchStrategy"
+        intro="Die Prompts beziehen automatisch deine Angaben aus Schritt 1 (Leitfrage, Unterfragen, Schlüsselbegriffe) und die Entwürfe auf dieser Seite ein."
+        resolvePrompt={resolveSearchStrategyPrompt}
+      />
 
       <div className="mb-6 space-y-6">
         <InfoBox title="PRISMA-Flowdiagramm">

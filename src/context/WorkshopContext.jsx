@@ -30,6 +30,8 @@ function createInitialSynthesis() {
   return {
     notes: "",
     implications: "",
+    categoryNotes: "",
+    codingGuide: "",
   };
 }
 
@@ -179,7 +181,12 @@ export function WorkshopProvider({ children }) {
   }, []);
 
   const resetWorkshop = useCallback(() => {
-    if (!window.confirm("Möchten Sie wirklich alle gespeicherten SLR-Daten in diesem Browser zurücksetzen?")) return;
+    if (
+      !window.confirm(
+        "Möchtest du wirklich alle gespeicherten SLR-Daten zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden."
+      )
+    )
+      return;
     setState(createInitialWorkshopState());
     try {
       localStorage.removeItem(LEGACY_MATRIX_STORAGE_KEY);

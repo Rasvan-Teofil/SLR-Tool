@@ -96,6 +96,9 @@ const NOTEBOOKLM = {
   icon: "▤",
 };
 
+/** Kompakte Schnellzugriffe für Schritt 1 (Ideenfindung) — Teilmenge, nicht 1:1 die volle step1-Liste. */
+export const RESEARCH_IDEATION_QUICK_LINKS = [CHATGPT, GOOGLE_GEMINI, PERPLEXITY, CONSENSUS];
+
 export const STEP_TOOLS = {
   step1: [
     ...STANDARD_TOOLS,

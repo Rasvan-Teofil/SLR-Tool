@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
+import ResearchGapsTypesInfo from "../components/ResearchGapsTypesInfo";
 import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 import {
@@ -18,7 +19,7 @@ import {
 } from "../lib/conceptMatrix";
 
 export default function ConceptMatrixPage() {
-  const { state, updateConceptMatrix, resetWorkshop } = useWorkshop();
+  const { state, updateConceptMatrix } = useWorkshop();
   const data = state.conceptMatrix;
 
   const categories = data.categories;
@@ -274,14 +275,6 @@ export default function ConceptMatrixPage() {
             {data.showCsv ? "CSV ausblenden" : "CSV-Daten anzeigen"}
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={resetWorkshop}
-          className="rounded-md bg-red-50 px-4 py-2 text-sm font-medium text-red-600 shadow-sm transition hover:bg-red-100"
-        >
-          Alle SLR-Daten zurücksetzen
-        </button>
       </section>
 
       {data.showCsv && (
@@ -510,7 +503,8 @@ export default function ConceptMatrixPage() {
         </div>
 
         <div className="mt-6 border-t border-orange-200 pt-5">
-          <label className="mb-3 block text-sm font-semibold text-slate-800">Notizen zu Forschungslücken:</label>
+          <ResearchGapsTypesInfo />
+          <label className="mb-3 mt-4 block text-sm font-semibold text-slate-800">Notizen zu Forschungslücken:</label>
           <textarea
             value={data.gapNotes}
             onChange={(e) => updateData((current) => ({ ...current, gapNotes: e.target.value }))}

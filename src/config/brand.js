@@ -4,6 +4,6 @@ export const brand = {
   /** Kurzer Untertitel in der Navigation */
   tagline: "Dein Begleiter für die systematische Literaturrecherche",
   /** Motivierender Claim (eine Zeile) */
-  claim: "Strukturiert zur Masterarbeit — Schritt für Schritt durch deine Literaturrecherche.",
+  claim: "Strukturiert zur Masterarbeit - Schritt für Schritt durch deine Literaturrecherche.",
   monogram: "SC",
 };

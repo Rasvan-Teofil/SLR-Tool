@@ -7,6 +7,7 @@ import {
   stepIndexForPath,
 } from "../constants/workshopSteps";
 import BrandMark from "./BrandMark";
+import WorkshopResetButton from "./WorkshopResetButton";
 
 export default function StepNavigation() {
   const location = useLocation();
@@ -31,9 +32,12 @@ export default function StepNavigation() {
     >
       <div className="mb-2 flex flex-col gap-1 border-b border-slate-100 pb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <BrandMark compact />
-        <p className="text-[11px] leading-snug text-slate-500 sm:max-w-[min(100%,20rem)] sm:self-center sm:text-right">
-          {brand.claim}
-        </p>
+        <div className="flex w-full min-w-0 flex-col items-stretch gap-2 sm:max-w-[min(100%,24rem)] sm:items-end">
+          <p className="text-[11px] leading-snug text-slate-500 sm:text-right">{brand.claim}</p>
+          <div className="flex justify-end">
+            <WorkshopResetButton />
+          </div>
+        </div>
       </div>
 
       <div className="mb-2 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">

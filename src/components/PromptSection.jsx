@@ -5,8 +5,9 @@ import PromptCard from "./PromptCard";
  * @param {keyof typeof AI_PROMPTS_BY_PAGE} pageKey
  * @param {string | null} [intro] — optional; Standard kein Fließtext (kompakte UI)
  * @param {(item: { id: string, title: string, prompt: string }) => string} [resolvePrompt] — optional; z. B. Schritt 1 mit Formularwerten
+ * @param {string} [sectionTitle] — optionale Überschrift statt „KI-Prompts“
  */
-export default function PromptSection({ pageKey, intro = null, resolvePrompt = null }) {
+export default function PromptSection({ pageKey, intro = null, resolvePrompt = null, sectionTitle = "KI-Prompts" }) {
   const prompts = AI_PROMPTS_BY_PAGE[pageKey];
   if (!prompts?.length) return null;
 
@@ -17,7 +18,7 @@ export default function PromptSection({ pageKey, intro = null, resolvePrompt = n
     >
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
         <h2 id={`prompt-section-${pageKey}`} className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          KI-Prompts
+          {sectionTitle}
         </h2>
       </div>
       {intro ? <p className="mb-3 text-xs leading-snug text-slate-600">{intro}</p> : null}

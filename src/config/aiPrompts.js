@@ -1,6 +1,6 @@
 /**
  * KI-Prompt-Vorlagen je Arbeitsschritt (zentral pflegbar).
- * Seiten binden über denselben Schlüssel wie PAGE_TOOL_LINKS in toolsConfig.js ein: researchQuestion | searchStrategy | conceptMatrix | synthesis
+ * KI-Prompt-Vorlagen je Arbeitsschritt. Schlüssel: researchQuestionIdeation, researchQuestionRefinement, searchStrategy, conceptMatrix, synthesis
  *
  * Felder:
  * - id: stabiler Schlüssel
@@ -10,39 +10,115 @@
  */
 
 export const AI_PROMPTS_BY_PAGE = {
-  researchQuestion: [
+  /** Schritt 1 A — Ideation: hin zu Leitfrage, Unterfragen, Begriffen */
+  researchQuestionIdeation: [
     {
-      id: "rq-pico-spider",
-      title: "Forschungsfrage schärfen (PICO / SPIDER)",
-      description:
-        "Nutzen Sie diesen Prompt, wenn Sie eine erste Idee haben und sie in eine strukturierte, literaturrelevante Frage übersetzen möchten.",
-      prompt: `Sie sind Methodenberater:in für systematische Literaturreviews in der Management- und Wirtschaftsinformatikforschung.
+      id: "rq-idea-framing",
+      title: "Thema einordnen und erste Leitfrage skizzieren",
+      description: "Wenn du noch am Anfang stehst: Thema strukturieren und eine erste Leitfrage formulieren lassen.",
+      prompt: `Sie sind Methodenberater:in für systematische Literaturreviews.
 
-Mein Themengebiet und meine erste Idee (bitte unten einfügen):
+Ausgangslage (bitte ausfüllen):
 [THEMA / KONTEXT]
 
-Meine bisherige Formulierung einer möglichen Leitfrage (optional):
+Meine erste Idee oder Vorläufer-Leitfrage (optional):
 [AKTUELLE FRAGE]
 
 Bitte:
-1. Bewerten Sie, ob sich die Frage eher für ein PICO- (interventions-/outcome-orientiert) oder ein SPIDER-Schema (qualitativ/explorativ) eignet, und begründen Sie knapp.
-2. Leiten Sie daraus eine präzise Leitforschungsfrage ab (ein Satz, klar und überprüfbar).
-3. Formulieren Sie 2–4 Unterfragen oder Teilziele, die die Matrix oder die Suche strukturieren können.
-4. Nennen Sie 5–8 Schlüsselbegriffe und sinnvolle Synonyme/Übersetzungen für die Literatursuche (Deutsch/Englisch, wenn sinnvoll).
-5. Listen Sie offene Klärungen auf, die ich mit meiner Betreuungsperson abstimmen sollte.
+1. Fassen Sie das Thema in 2–3 Sätzen ein und grenzen Sie es fachlich ein.
+2. Schlagen Sie eine prägnante Leitforschungsfrage vor (ein Satz).
+3. Nennen Sie 3–5 mögliche Schlüsselbegriffe und Synonyme (DE/EN, wenn sinnvoll).
+4. Weisen Sie darauf hin, welche Klärungen ich mit der Betreuung klären sollte.
 
-Antworten Sie strukturiert mit klaren Überschriften, sachlich und akademisch.`,
+Antwort strukturiert, sachlich, deutsch.`,
       toolHref: "https://chat.openai.com/",
       toolLabel: "ChatGPT öffnen",
     },
     {
-      id: "rq-critique",
-      title: "Leitfrage kritisch prüfen (FINER / Machbarkeit)",
-      description:
-        "Wenn Ihre Frage bereits steht: Prüfung auf Schärfe, Machbarkeit und Abgrenzung — bevor Sie die Suchstrategie festigen.",
+      id: "rq-idea-subquestions",
+      title: "Unterfragen und Teilziele ableiten",
+      description: "Aus Leitfrage oder Themenskizze: strukturierende Unterfragen für Matrix und Auswertung.",
+      prompt: `Sie unterstützen bei der Strukturierung einer systematischen Literaturrecherche.
+
+Leitforschungsfrage (Stand jetzt):
+[LEITFRAGE]
+
+Unterfragen / Teilziele (falls schon vorhanden — sonst leer lassen):
+[UNTERFRAGEN]
+
+Bitte:
+1. Leiten Sie 3–6 Unterfragen oder Teilziele ab, die die spätere Konzeptmatrix oder die Auswertung sinnvoll strukturieren.
+2. Kennzeichnen Sie Prioritäten (kern vs. ergänzend).
+3. Schlagen Sie für jede Unterfrage kurz vor, welche Literaturtyp(en) oder Designs typischerweise relevant wären.
+
+Deutsch, knapp, mit nummerierter Liste.`,
+      toolHref: "https://gemini.google.com/",
+      toolLabel: "Gemini öffnen",
+    },
+    {
+      id: "rq-idea-keywords",
+      title: "Schlüsselbegriffe und Synonyme sammeln",
+      description: "Suchnahe Begriffsliste für spätere Datenbanksuche entwickeln.",
+      prompt: `Sie helfen bei der Vorbereitung einer Literatursuche für eine SLR.
+
+Thema / Kontext:
+[THEMA / KONTEXT]
+
+Leitforschungsfrage:
+[LEITFRAGE]
+
+Schlüsselbegriffe bisher (optional):
+[SCHLUESSELBEGRIFFE]
+
+Bitte:
+1. Listen Sie 8–15 Suchbegriffe mit kurzen Erklärungen und Synonymen (DE/EN).
+2. Schlagen Sie Akronyme und verwandte Terms vor.
+3. Markieren Sie Begriffe, die mehrdeutig sein könnten und eingegrenzt werden müssen.
+
+Ausgabe als kompakte Tabelle oder Liste.`,
+      toolHref: "https://www.perplexity.ai/",
+      toolLabel: "Perplexity öffnen",
+    },
+  ],
+
+  /** Schritt 1 B — Refinement: bestehende Inhalte prüfen und schärfen */
+  researchQuestionRefinement: [
+    {
+      id: "rq-refine-slr-fit",
+      title: "Gesamtpaket prüfen (SLR-Tauglichkeit)",
+      description: "Leitfrage, Unterfragen und Begriffe gemeinsam auf Fokus und Operationalisierbarkeit prüfen.",
       prompt: `Sie sind Expert:in für systematische Literaturübersichten.
 
-Meine geplante Masterarbeit / der Review-Fokus:
+Ich arbeite an folgender Masterarbeit / Literaturrecherche.
+
+Leitforschungsfrage:
+[LEITFRAGE]
+
+Unterfragen / Teilziele:
+[UNTERFRAGEN]
+
+Schlüsselbegriffe:
+[SCHLUESSELBEGRIFFE]
+
+Thema / Kontext (Titel/Kurzbeschreibung):
+[THEMA / KONTEXT]
+
+Bitte prüfen Sie in einem Absatz:
+1. Ist das Gesamtpaket für eine systematische Literaturrecherche geeignet, fokussiert und operationalisierbar?
+2. Wo bestehen Risiken (zu breit, zu viele Konstructs, fehlende Abgrenzung)?
+3. Was sollte ich zuerst schärfen — Leitfrage, Unterfragen oder Begriffe?
+
+Danach drei konkrete Verbesserungsvorschläge in Stichpunkten.`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+    {
+      id: "rq-refine-finer",
+      title: "Leitfrage schärfen (FINER / Machbarkeit)",
+      description: "Klassische Prüfung der Leitfrage allein — nachdem erste Entwürfe stehen.",
+      prompt: `Sie sind Expert:in für systematische Literaturübersichten.
+
+Thema / Kontext:
 [KONTEXT, z. B. Branche, Theorie, praktische Relevanz]
 
 Meine aktuelle Leitforschungsfrage:
@@ -51,67 +127,105 @@ Meine aktuelle Leitforschungsfrage:
 Bitte bewerten Sie die Frage anhand von FINER (Feasible, Interesting, Novel, Ethical, Relevant) kurz je Kriterium.
 
 Danach:
-1. Nennen Sie Stärken und Schwächen der Formulierung (Präzision, Messbarkeit, Abgrenzung).
-2. Schlagen Sie eine überarbeitete Version der Leitfrage vor (falls nötig, mit Begründung).
-3. Welche Einschränkungen (Zeitraum, Sprache, Setting) sollte ich explizit festhalten, um die Suche realistisch zu halten?
+1. Stärken und Schwächen der Formulierung (Präzision, Messbarkeit, Abgrenzung).
+2. Überarbeitete Leitfrage (falls nötig) mit kurzer Begründung.
+3. Welche Einschränkungen (Zeitraum, Sprache, Setting) sollte ich explizit festhalten?
 
-Bitte knapp halten, aber mit konkreten Formulierungsvorschlägen.`,
+Bitte knapp, aber mit konkreten Formulierungsvorschlägen.`,
       toolHref: "https://www.perplexity.ai/",
       toolLabel: "Perplexity öffnen",
+    },
+    {
+      id: "rq-refine-align",
+      title: "Unterfragen und Schlüsselbegriffe abstimmen",
+      description: "Konsistenz zwischen Unterfragen und Begriffsfeld herstellen.",
+      prompt: `Sie unterstützen bei der Abstimmung von Unterfragen und Schlüsselbegriffen für eine SLR.
+
+Leitforschungsfrage:
+[LEITFRAGE]
+
+Unterfragen / Teilziele:
+[UNTERFRAGEN]
+
+Schlüsselbegriffe:
+[SCHLUESSELBEGRIFFE]
+
+Bitte:
+1. Zeigen Sie Überschneidungen oder Redundanzen zwischen Unterfragen und Begriffen auf.
+2. Schlagen Sie eine konsolidierte Liste von Unterfragen (max. 6) vor.
+3. Erweitern oder strukturieren Sie die Schlüsselbegriffe so, dass sie die unterfragen logisch abdecken.
+
+Deutsch, mit klarer Liste am Ende.`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
     },
   ],
 
   searchStrategy: [
     {
-      id: "ss-boolean",
-      title: "Suchstring und Boolsche Logik entwickeln",
+      id: "ss-strategy-full",
+      title: "Suchstrategie aus Schritt 1 ableiten",
       description:
-        "Hilft beim Übergang von Konzepten zu datenbanktauglichen Suchausdrücken inkl. Trunkierung und Feldern.",
-      prompt: `Sie unterstützen bei der Erstellung einer systematischen Suchstrategie für wissenschaftliche Datenbanken.
+        "Auf Basis von Leitfrage, Unterfragen und Begriffen: Datenbanken, Suchstring, Kriterien und Synonyme.",
+      prompt: `Auf Basis meiner Leitforschungsfrage, meiner Unterfragen und meiner Schlüsselbegriffe bitte ich um eine nachvollziehbare Suchstrategie für eine systematische Literaturrecherche.
 
-Kernkonzepte / PICO oder SPIDER-Elemente:
-[KONZEPTE]
+Leitforschungsfrage:
+[LEITFRAGE]
 
-Schlüsselbegriffe und Synonyme (falls schon vorhanden):
-[BEGRIFFE]
+Unterfragen / Teilziele:
+[UNTERFRAGEN]
 
-Datenbanken oder Quellen, die ich nutze (optional):
-[Z. B. Scopus, Web of Science, IEEE Xplore, Google Scholar …]
+Schlüsselbegriffe:
+[SCHLUESSELBEGRIFFE]
+
+Meine bisherigen Entwürfe auf diesem Arbeitsschritt (falls ausgefüllt):
+
+Datenbanken & Quellen:
+[DATENBANKEN]
+
+Suchstring / Suchlogik:
+[SUCHSTRING]
+
+Einschlusskriterien:
+[EINSCHLUSS]
+
+Ausschlusskriterien:
+[AUSSCHLUSS]
 
 Bitte:
-1. Schlagen Sie für jedes Hauptkonzept eine Gruppe von Suchbegriffen vor (DE/EN, Akronyme, verwandte Terms).
-2. Entwickeln Sie einen kombinierten Booleschen Suchstring (AND/OR, Klammerung), den ich in typischen Datenbanken anpassen kann.
-3. Geben Sie Hinweise zu Trunkierung (*), Phrasensuche ("…") und ggf. Feldern (TITLE-ABS-KEY o. ä.) als allgemeine Empfehlung — ohne eine konkrete Datenbank zu simulieren, falls unklar.
-4. Listen Sie mögliche Sensitivitäts- vs. Spezifitäts-Abwägungen und wie ich sie dokumentieren kann (für PRISMA/Anhang).
+1. Schlagen Sie geeignete wissenschaftliche Datenbanken und ergänzende Quellen vor und begründen Sie knapp.
+2. Entwickeln Sie für jedes Hauptkonzept eine Suchbegriffsgruppe (Synonyme, DE/EN, Akronyme).
+3. Formulieren Sie einen Booleschen Suchstring (AND/OR, Klammerung) als Entwurf.
+4. Formulieren oder verbessern Sie Ein- und Ausschlusskriterien so, dass sie zu meiner Leitfrage passen und dokumentierbar sind.
+5. Nennen Sie Sensitivität vs. Spezifität und was ich im Anhang festhalten sollte.
 
-Ausgabe klar strukturiert, mit einem Block „Suchstring (Entwurf)“ zum Kopieren.`,
+Ausgabe mit klaren Überschriften; einen Block „Suchstring (Entwurf)“ zum Kopieren am Ende.`,
       toolHref: "https://chat.openai.com/",
       toolLabel: "ChatGPT öffnen",
     },
     {
-      id: "ss-prisma-doc",
-      title: "Draft search protocol & PRISMA sections",
-      description:
-        "Helps turn your notes into concise prose for the PRISMA fields (identification through included studies).",
-      prompt: `I am documenting a systematic literature search using PRISMA-style sections in my protocol.
+      id: "ss-string-refine",
+      title: "Suchstring verfeinern und Testläufe planen",
+      description: "Operatoren, Trunkierung und Felder — angepasst an Ihre Begriffe aus Schritt 1.",
+      prompt: `Sie unterstützen bei der Verfeinerung einer Suchstrategie für eine SLR.
 
-Current bullet notes:
-- Databases and search dates: […]
-- Records after search (raw): […]
-- After duplicate removal: […]
-- Title/abstract screening: screened / excluded: […]
-- Full text: obtained / not retrieved / excluded with reasons: […]
-- Included for data extraction: […]
+Bezug aus Schritt 1 — Leitforschungsfrage:
+[LEITFRAGE]
 
-Please draft short, neutral academic paragraphs in English for:
-1) Identification of records
-2) Screening at title and abstract level
-3) Eligibility assessment with full texts
-4) Studies finally included
+Schlüsselbegriffe:
+[SCHLUESSELBEGRIFFE]
 
-Do not invent numbers—clearly mark placeholders where data are still missing.`,
-      toolHref: "https://chat.openai.com/",
-      toolLabel: "ChatGPT öffnen",
+Aktueller Suchstring (Entwurf):
+[SUCHSTRING]
+
+Bitte:
+1. Schlagen Sie Anpassungen vor (Trunkierung *, Phrasensuche, Klammerung).
+2. Nennen Sie typische Datenbankfelder (z. B. TITLE-ABS-KEY) nur als allgemeine Hinweise.
+3. Skizzieren Sie, wie ich mit schmal/breit testen kann, ohne konkrete Trefferzahlen zu erfinden.
+
+Kurz und umsetzbar, deutsch.`,
+      toolHref: "https://gemini.google.com/",
+      toolLabel: "Gemini öffnen",
     },
   ],
 
@@ -165,45 +279,74 @@ Wichtig: Keine halluzinierten Zitate — wenn Information fehlt, explizit „nic
 
   synthesis: [
     {
-      id: "syn-narrative",
-      title: "Narrative Synthese strukturieren",
+      id: "syn-categories-from-texts",
+      title: "Synthese-Kategorien aus Zusammenfassungen entwickeln",
       description:
-        "Gliederung für das Diskussions- bzw. Literaturkapitel aus Muster, Widersprüchen und Forschungslücken.",
-      prompt: `Ich schreibe die Synthese meiner systematischen Literaturübersicht für eine Masterarbeit.
+        "Wiederkehrende Themen und Muster aus Paper-Zusammenfassungen oder Exzerpten — für die spätere Matrix.",
+      prompt: `Ich gebe im Folgenden Zusammenfassungen oder Exzerpte mehrerer wissenschaftlicher Artikel ein (ggf. noch Platzhalter).
 
-Kontext:
-- Leitfrage: [LEITFRAGE]
-- Kernergebnisse aus der Matrix / wichtigste Muster: [STICHPUNKTE]
-- Offene Lücken oder widersprüchliche Befunde: […]
+Leitforschungsfrage meiner Arbeit:
+[LEITFRAGE]
+
+Rohmaterial (Zusammenfassungen / Auszüge — hier einfügen):
+[PAPER_TEXT]
 
 Bitte:
-1. Schlagen Sie eine Gliederung für einen Abschnitt „Diskussion der Literatur“ oder „Synthese“ vor (nummerierte Überschriften).
-2. Formulieren Sie 2–3 Überleitungssätze zwischen den Abschnitten.
-3. Heben Sie hervor, wo Theorie, Methodik und Praxis getrennt diskutiert werden sollten.
-4. Listen Sie Formulierungen auf, mit denen ich Vorsicht und Grenzen der Evidenz akademisch angemessen ausdrücken kann (ohne Übertreibung).
+1. Identifizieren Sie wiederkehrende Themen, Konzepte und Muster.
+2. Entwickeln Sie daraus sinnvolle Synthese-Kategorien für eine systematische Literaturrecherche.
+3. Geben Sie zu jeder Kategorie eine kurze Definition und Beispiele, welche Arten von Befunden darunter fallen würden.
+4. Kennzeichnen Sie Überschneidungen zwischen Kategorien und wie ich sie trennen oder zusammenführen kann.
 
-Ton: präzise, deutsch, für ein Hochschulpublikum.`,
+Wichtig: Keine halluzinierten Zitate — nur aus dem gelieferten Material ableiten; sonst „nicht belegbar“ vermerken.`,
       toolHref: "https://chat.openai.com/",
       toolLabel: "ChatGPT öffnen",
     },
     {
-      id: "syn-implications",
-      title: "Implikationen und Forschungsagenda ableiten",
-      description:
-        "Vom Matrix- und Synthesefinal zu praktischen und wissenschaftlichen Folgerungen für die Abschlussarbeit.",
-      prompt: `Aus meiner SLR-Auswertung möchte ich Implikationen und eine kleine Forschungsagenda ableiten.
+      id: "syn-coding-guide",
+      title: "Kodierleitfaden aus Kategorien erstellen",
+      description: "Definitionen, Ein- und Ausschlussregeln und Beispiele je Kategorie.",
+      prompt: `Auf Basis der folgenden Forschungsfrage und der vorläufigen Kategorien soll ein Kodierleitfaden für die qualitative Synthese einer systematischen Literaturrecherche entstehen.
 
-Kurz zusammengefasst:
-- Hauptbefunde (3–5 Bulletpoints): […]
-- Zielgruppe der Arbeit (Praxis vs. Wissenschaft): […]
-- Einschränkungen der eigenen Suche: […]
+Leitforschungsfrage:
+[LEITFRAGE]
+
+Vorläufige Kategorien / Notizen:
+[KATEGORIEN]
+
+Optional — Kodierideen oder erste Definitionen:
+[KODIERLEITFADEN]
+
+Bitte erstellen Sie einen Kodierleitfaden, der je Kategorie enthält:
+- Kurzdefinition
+- Einschlusskriterien (wann zählt ein Befund dazu)
+- Ausschlusskriterien (was explizit nicht dazu zählt)
+- Ein Beispiel (hypothetisch oder aus dem Kontext, klar als solches gekennzeichnet)
+
+Antwort strukturiert mit Überschriften pro Kategorie.`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+    {
+      id: "syn-patterns-gaps",
+      title: "Muster und Forschungslücken skizzieren",
+      description: "Brücke zur Konzeptmatrix und zu Forschungslücken — aus Kerntexten der Synthese.",
+      prompt: `Ich synthetisiere die Literatur für eine Masterarbeit / SLR.
+
+Leitforschungsfrage:
+[LEITFRAGE]
+
+Kernerkenntnisse / Rohtext meiner Synthese (Stichpunkte oder Absatz):
+[KERNTEXTE]
+
+Notizen zu Kategorien:
+[KATEGORIEN]
 
 Bitte:
-1. Trennen Sie klar: praktische Implikationen vs. theoretische Implikationen.
-2. Nennen Sie 3–5 konkrete Ideen für Folgeforschung, priorisiert nach Machbarkeit in einer Masterarbeit.
-3. Formulieren Sie jeweils einen Satz „So könnte ich das im letzten Kapitel meiner Arbeit positionieren.“
+1. Nennen Sie 3–5 zentrale Muster oder Cluster über die Studien hinweg.
+2. Benennen Sie methodische Unterschiede, die die Vergleichbarkeit einschränken könnten.
+3. Leiten Sie 3–5 mögliche Forschungslücken ab (empirisch, methodisch, theoretisch oder praxisbezogen — nur wo aus dem Text ableitbar).
 
-Bleiben Sie vorsichtig bei Kausalclaims — nur dort, wo die Literatur das hergibt.`,
+Ton: vorsichtig, akademisch, deutsch — keine überzogenen Kausalclaims.`,
       toolHref: "https://www.perplexity.ai/",
       toolLabel: "Perplexity öffnen",
     },
@@ -231,12 +374,66 @@ export function applyResearchQuestionPromptPlaceholders(template, fields) {
   const themaKontext = parts.length > 0 ? parts.join("\n\n") : RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
 
   const leitfrage = mainQuestion || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const unterfragen = subQuestions || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const schluessel = keywords || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
 
   return template
     .replaceAll("[THEMA / KONTEXT]", themaKontext)
     .replaceAll("[AKTUELLE FRAGE]", leitfrage)
     .replaceAll("[KONTEXT, z. B. Branche, Theorie, praktische Relevanz]", themaKontext)
-    .replaceAll("[LEITFRAGE]", leitfrage);
+    .replaceAll("[LEITFRAGE]", leitfrage)
+    .replaceAll("[UNTERFRAGEN]", unterfragen)
+    .replaceAll("[SCHLUESSELBEGRIFFE]", schluessel);
+}
+
+/**
+ * Schritt 2: Platzhalter mit Inhalten aus Forschungsfrage und aktuellem Suchstrategie-Entwurf füllen.
+ */
+export function applySearchStrategyPromptPlaceholders(template, { researchQuestion, searchStrategy }) {
+  const rq = researchQuestion || {};
+  const ss = searchStrategy || {};
+  const leit = (rq.mainQuestion ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const unt = (rq.subQuestions ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const key = (rq.keywords ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const db = (ss.databases ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const such = (ss.searchString ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const ein = (ss.inclusionCriteria ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const aus = (ss.exclusionCriteria ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const prot = (ss.notes ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+
+  return template
+    .replaceAll("[LEITFRAGE]", leit)
+    .replaceAll("[UNTERFRAGEN]", unt)
+    .replaceAll("[SCHLUESSELBEGRIFFE]", key)
+    .replaceAll("[DATENBANKEN]", db)
+    .replaceAll("[SUCHSTRING]", such)
+    .replaceAll("[EINSCHLUSS]", ein)
+    .replaceAll("[AUSSCHLUSS]", aus)
+    .replaceAll("[PROTOKOLLNOTIZEN]", prot);
+}
+
+/**
+ * Schritt Synthese: Kontext aus Forschungsfrage und Synthesefeldern.
+ */
+export function applySynthesisPromptPlaceholders(template, { researchQuestion, synthesis }) {
+  const rq = researchQuestion || {};
+  const sy = synthesis || {};
+  const leit = (rq.mainQuestion ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const unt = (rq.subQuestions ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const key = (rq.keywords ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const kat = (sy.categoryNotes ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const kod = (sy.codingGuide ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const kern = (sy.notes ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const paperPh = RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+
+  return template
+    .replaceAll("[LEITFRAGE]", leit)
+    .replaceAll("[UNTERFRAGEN]", unt)
+    .replaceAll("[SCHLUESSELBEGRIFFE]", key)
+    .replaceAll("[KATEGORIEN]", kat)
+    .replaceAll("[KODIERLEITFADEN]", kod)
+    .replaceAll("[KERNTEXTE]", kern)
+    .replaceAll("[PAPER_TEXT]", paperPh);
 }
 
 /** Gültige Seitenschlüssel (für Typisierung/Erweiterung im Team) */

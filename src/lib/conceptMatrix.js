@@ -49,7 +49,7 @@ export function ratingToPrintSymbol(status) {
 export function createInitialConceptMatrixData() {
   return {
     title: "Ihr Forschungsthema",
-    subtitle: "Konzeptmatrix nach Webster & Watson (mit hierarchischen Kategorien)",
+    subtitle: "",
     categories: [
       {
         id: crypto.randomUUID(),

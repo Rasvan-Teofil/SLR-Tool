@@ -201,17 +201,12 @@ export default function ConceptMatrixPage() {
 
   return (
     <PageLayout>
-      <p className="mb-4 text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 3 – Konzeptmatrix</p>
+      <p className="mb-4 text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 4 – Konzeptmatrix</p>
       <header className="mb-5">
         <input
           value={data.title}
           onChange={(e) => updateData((current) => ({ ...current, title: e.target.value }))}
           className="w-full bg-transparent text-3xl font-bold tracking-tight text-slate-800 outline-none"
-        />
-        <input
-          value={data.subtitle}
-          onChange={(e) => updateData((current) => ({ ...current, subtitle: e.target.value }))}
-          className="mt-1 w-full bg-transparent text-sm text-slate-500 outline-none"
         />
       </header>
 

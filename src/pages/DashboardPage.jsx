@@ -79,7 +79,9 @@ export default function DashboardPage() {
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 print:mt-1 print:text-xl">
             {conceptMatrix.title}
           </h1>
-          <p className="mt-2 text-sm text-slate-600 print:mt-1 print:text-xs">{conceptMatrix.subtitle}</p>
+          {conceptMatrix.subtitle?.trim() ? (
+            <p className="mt-2 text-sm text-slate-600 print:mt-1 print:text-xs">{conceptMatrix.subtitle.trim()}</p>
+          ) : null}
           <p className="mt-4 text-xs text-slate-500 print:mt-2">Stand: {today}</p>
         </header>
 
@@ -152,7 +154,20 @@ export default function DashboardPage() {
           </div>
         </ReportSection>
 
-        <ReportSection id="konzeptmatrix" title="3. Konzeptmatrix" allowPageBreak>
+        <ReportSection id="synthese" title="3. Synthese">
+          <SectionCard title="Kernerkenntnisse">
+            <Prose>{synthesis.notes}</Prose>
+          </SectionCard>
+          {synthesis.implications ? (
+            <div className="mt-4">
+              <SectionCard title="Implikationen & nächste Schritte">
+                <Prose emptyText="">{synthesis.implications}</Prose>
+              </SectionCard>
+            </div>
+          ) : null}
+        </ReportSection>
+
+        <ReportSection id="konzeptmatrix" title="4. Konzeptmatrix" allowPageBreak>
           <p className="mb-4 text-sm leading-relaxed text-slate-600 print:hidden">
             Vollständige Übersicht Ihrer Bewertungen (Webster &amp; Watson): Ideal, um Abdeckung und Lücken direkt am
             Raster zu erkennen — ohne in den Bearbeitungsmodus wechseln zu müssen.
@@ -207,19 +222,6 @@ export default function DashboardPage() {
             <div className="mt-4">
               <SectionCard title="Ihre Notizen zu Forschungslücken">
                 <Prose emptyText="">{conceptMatrix.gapNotes}</Prose>
-              </SectionCard>
-            </div>
-          ) : null}
-        </ReportSection>
-
-        <ReportSection id="synthese" title="4. Synthese">
-          <SectionCard title="Kernerkenntnisse">
-            <Prose>{synthesis.notes}</Prose>
-          </SectionCard>
-          {synthesis.implications ? (
-            <div className="mt-4">
-              <SectionCard title="Implikationen & nächste Schritte">
-                <Prose emptyText="">{synthesis.implications}</Prose>
               </SectionCard>
             </div>
           ) : null}

@@ -1,2 +1,5 @@
 node_modules
 dist
+dist-single
+# nur lokal: Single-File-Build (nicht committen)
+vite.single.config.js

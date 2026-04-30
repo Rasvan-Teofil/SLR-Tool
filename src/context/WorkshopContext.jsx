@@ -44,11 +44,22 @@ export function createInitialWorkshopState() {
 }
 
 function mergeConceptMatrixFromLegacy(parsed) {
-  return {
+  return normalizeConceptMatrixSubtitle({
     ...createInitialConceptMatrixData(),
     ...parsed,
     ratings: parsed.ratings && typeof parsed.ratings === "object" ? parsed.ratings : {},
-  };
+  });
+}
+
+/** Früherer Default-Untertitel; beim Laden entfernen, damit der Bericht keine veraltete Zeile zeigt. */
+const REMOVED_DEFAULT_MATRIX_SUBTITLE = "Konzeptmatrix nach Webster & Watson (mit hierarchischen Kategorien)";
+
+function normalizeConceptMatrixSubtitle(matrix) {
+  if (!matrix || typeof matrix !== "object") return matrix;
+  if (matrix.subtitle === REMOVED_DEFAULT_MATRIX_SUBTITLE) {
+    return { ...matrix, subtitle: "" };
+  }
+  return matrix;
 }
 
 function loadPersistedState() {
@@ -71,7 +82,7 @@ function loadPersistedState() {
           ),
         },
         synthesis: { ...base.synthesis, ...(parsed.synthesis || {}) },
-        conceptMatrix:
+        conceptMatrix: normalizeConceptMatrixSubtitle(
           parsed.conceptMatrix && typeof parsed.conceptMatrix === "object"
             ? {
                 ...createInitialConceptMatrixData(),
@@ -81,7 +92,8 @@ function loadPersistedState() {
                     ? parsed.conceptMatrix.ratings
                     : {},
               }
-            : base.conceptMatrix,
+            : base.conceptMatrix
+        ),
       };
     }
 

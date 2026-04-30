@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { WorkshopProvider } from "./context/WorkshopContext";
 import AppLayout from "./layout/AppLayout";
 import ConceptMatrixPage from "./pages/ConceptMatrixPage";
@@ -10,7 +10,7 @@ import SynthesisPage from "./pages/SynthesisPage";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <WorkshopProvider>
         <Routes>
           <Route element={<AppLayout />}>
@@ -24,6 +24,6 @@ export default function App() {
           </Route>
         </Routes>
       </WorkshopProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

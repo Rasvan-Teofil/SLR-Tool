@@ -17,9 +17,9 @@ export default function SynthesisPage() {
   return (
     <PageLayout>
       <PageHeader
-        stepLabel="Schritt 4 – Synthese"
+        stepLabel="Schritt 3 – Synthese"
         title="Synthese und Einordnung"
-        subtitle="Fassen Sie Muster, Widersprüche und offene Punkte aus der Literatur zusammen – als Überleitung zur dokumentierten Ergebnisübersicht."
+        subtitle="Fassen Sie Muster, Widersprüche und offene Punkte aus der Literatur zusammen – als Grundlage für die strukturierte Konzeptmatrix im nächsten Schritt."
       />
 
       <PageToolGrid
@@ -32,8 +32,8 @@ export default function SynthesisPage() {
       <div className="mb-6 space-y-6">
         <InfoBox title="Arbeitshinweis">
           <p>
-            Die Konzeptmatrix liefert strukturierte Evidenz zur Abdeckung von Konzepten; hier ordnen Sie die
-            inhaltliche Story und Ihre Interpretation für die spätere Ergebnisübersicht und Ihre Arbeit ein.
+            Hier formulieren Sie die narrative Synthese Ihrer Literaturlage. Im nächsten Schritt ordnen Sie die
+            Befunde in der Konzeptmatrix tabellarisch – die Ergebnisübersicht führt beides zusammen.
           </p>
         </InfoBox>
 

@@ -9,7 +9,7 @@ export default function ResourcesPage() {
   return (
     <PageLayout>
       <PageHeader
-        stepLabel="Schritt 5 – Ressourcen & Tools"
+        stepLabel="Referenz — kein Arbeitsschritt des SLR-Prozesses"
         title="Ressourcen & Tools"
         subtitle="Gesammelte Hilfen für Recherche, Screening und Schreiben — ergänzend zu den Schnellzugriffen auf den Arbeitsschritten."
       />

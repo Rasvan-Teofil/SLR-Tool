@@ -1,14 +1,22 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { brand } from "../config/brand";
-import { WORKSHOP_STEPS, stepIndexForPath } from "../constants/workshopSteps";
+import {
+  PROCESS_STEP_TOTAL,
+  WORKSHOP_STEPS,
+  processIndexForPath,
+  stepIndexForPath,
+} from "../constants/workshopSteps";
 import BrandMark from "./BrandMark";
 
 export default function StepNavigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const currentIndex = stepIndexForPath(location.pathname);
-  const total = WORKSHOP_STEPS.length;
-  const progress = Math.round(((currentIndex + 1) / total) * 100);
+  const procIdx = processIndexForPath(location.pathname);
+  const isSupplementary = procIdx === null;
+  const progress = isSupplementary
+    ? 100
+    : Math.round(((procIdx + 1) / PROCESS_STEP_TOTAL) * 100);
 
   function goRelative(delta) {
     const next = currentIndex + delta;
@@ -32,7 +40,13 @@ export default function StepNavigation() {
         <div className="min-w-0">
           <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
           <p className="truncate text-xs font-semibold text-slate-800 sm:text-sm">
-            Schritt {currentIndex + 1} von {total}: {WORKSHOP_STEPS[currentIndex]?.label}
+            {isSupplementary ? (
+              <>Referenz (ohne Arbeitsschritt): {WORKSHOP_STEPS[currentIndex]?.label}</>
+            ) : (
+              <>
+                Schritt {procIdx + 1} von {PROCESS_STEP_TOTAL}: {WORKSHOP_STEPS[currentIndex]?.label}
+              </>
+            )}
           </p>
         </div>
         <div className="h-1.5 w-full max-w-md shrink-0 overflow-hidden rounded-full bg-slate-100 sm:ml-auto">
@@ -48,7 +62,7 @@ export default function StepNavigation() {
       </div>
 
       <ul className="flex flex-wrap gap-1 border-t border-slate-100 pt-2">
-        {WORKSHOP_STEPS.map((step, i) => (
+        {WORKSHOP_STEPS.map((step) => (
           <li key={step.path}>
             <NavLink
               to={step.path}
@@ -56,12 +70,20 @@ export default function StepNavigation() {
                 `inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition md:px-2.5 md:text-[13px] ${
                   isActive
                     ? "bg-indigo-100 text-indigo-900"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    : step.processIndex === null
+                      ? "bg-slate-50 text-slate-500 hover:bg-slate-100"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`
               }
               end={step.path === "/"}
             >
-              <span className="tabular-nums text-[10px] opacity-70 md:text-xs">{i + 1}.</span>
+              {step.processIndex !== null ? (
+                <span className="tabular-nums text-[10px] opacity-70 md:text-xs">{step.processIndex + 1}.</span>
+              ) : (
+                <span className="text-[10px] opacity-60 md:text-xs" aria-hidden>
+                  ·
+                </span>
+              )}
               {step.label}
             </NavLink>
           </li>

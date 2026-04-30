@@ -6,7 +6,7 @@ import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
 import PrismaDiagramImportCard from "../components/PrismaDiagramImportCard";
 import PrismaExternalEmbed from "../components/PrismaExternalEmbed";
-import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
+import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 
 const fieldClass =
@@ -21,23 +21,22 @@ export default function SearchStrategyPage() {
       <PageHeader
         stepLabel="Schritt 2 – Suchstrategie"
         title="Suchstrategie und Dokumentation"
-        subtitle="Dokumentieren Sie Quellen, Suchstrings und Kriterien. PRISMA-Felder und das eingebettete Flowdiagramm-Tool ergänzen sich auf dieser Seite."
+        subtitle="Dokumentieren Sie Quellen, Suchstrings und Kriterien. Das eingebettete Flowdiagramm-Tool und der PNG-Upload ergänzen die Dokumentation auf dieser Seite."
       />
 
       <PageToolGrid
-        intro="Datenbanken, Operatoren und Reporting — ausgewählt für die Dokumentation Ihrer Suche."
+        intro="KI-Tools zur systematischen Literaturfindung, Netzwerken und Qualitätschecks — öffnen in einem neuen Tab."
         tools={PAGE_TOOL_LINKS.searchStrategy}
       />
 
       <PromptSection pageKey="searchStrategy" />
 
       <div className="mb-6 space-y-6">
-        <InfoBox title="PRISMA-orientierte Felder">
+        <InfoBox title="PRISMA-Flowdiagramm">
           <p>
-            Nutzen Sie die vier Freitextfelder für Identifikation, Screening, Eignungsprüfung (Volltext) und
-            eingeschlossene Studien. Darunter ist das externe PRISMA-Flowdiagramm-Tool eingebettet — Änderungen dort
-            werden nicht automatisch in diesem Arbeitsblatt gespeichert. Sie können das exportierte Diagramm (PNG)
-            anschließend hochladen; es erscheint in der Ergebnisübersicht.
+            Unten ist das externe PRISMA-Flowdiagramm-Tool eingebettet — Änderungen dort werden nicht automatisch in
+            diesem Arbeitsblatt gespeichert. Sie können das exportierte Diagramm (PNG) anschließend hochladen; es
+            erscheint in der Ergebnisübersicht.
           </p>
         </InfoBox>
 
@@ -81,46 +80,6 @@ export default function SearchStrategyPage() {
             />
           </SectionCard>
         </div>
-
-        <SectionCard title="PRISMA: Identification">
-          <textarea
-            value={ss.prismaIdentification}
-            onChange={(e) => updateSearchStrategy({ prismaIdentification: e.target.value })}
-            rows={3}
-            className={fieldClass}
-            placeholder="Records per source, duplicates, total identified …"
-          />
-        </SectionCard>
-
-        <SectionCard title="PRISMA: Screening (title/abstract)">
-          <textarea
-            value={ss.prismaScreening}
-            onChange={(e) => updateSearchStrategy({ prismaScreening: e.target.value })}
-            rows={3}
-            className={fieldClass}
-            placeholder="Screened, excluded, reasons at title/abstract …"
-          />
-        </SectionCard>
-
-        <SectionCard title="PRISMA: Eligibility (full text)">
-          <textarea
-            value={ss.prismaEligibility}
-            onChange={(e) => updateSearchStrategy({ prismaEligibility: e.target.value })}
-            rows={3}
-            className={fieldClass}
-            placeholder="Full-text assessed, excluded, reasons …"
-          />
-        </SectionCard>
-
-        <SectionCard title="PRISMA: Included studies">
-          <textarea
-            value={ss.prismaIncluded}
-            onChange={(e) => updateSearchStrategy({ prismaIncluded: e.target.value })}
-            rows={3}
-            className={fieldClass}
-            placeholder="Finally included, qualitative/quantitative synthesis …"
-          />
-        </SectionCard>
 
         <PrismaExternalEmbed />
 

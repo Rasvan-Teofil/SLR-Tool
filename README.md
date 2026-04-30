@@ -15,10 +15,10 @@ src/
   styles.css
   config/
     brand.js              # Produktname, Claim, Monogramm
-    pageToolLinks.js      # Schnellzugriffe je Arbeitsschritt (1–4)
+    toolsConfig.js        # KI-Schnellzugriffe je Arbeitsschritt (1–4)
     resourcesPage.js     # Inhalt Seite „Ressourcen & Tools“
   constants/
-    workshopSteps.js       # Schritt-Definitionen & Pfade (6 Schritte)
+    workshopSteps.js       # Schritt-Definitionen & Pfade (5 Prozessschritte + Ressourcen ohne Nummer)
   context/
     WorkshopContext.jsx   # Globaler State, localStorage
   layout/

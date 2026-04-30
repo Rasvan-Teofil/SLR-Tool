@@ -1,15 +1,29 @@
+import { useCallback } from "react";
 import PageHeader from "../components/PageHeader";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
-import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
+import { applyResearchQuestionPromptPlaceholders } from "../config/aiPrompts";
+import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 
 export default function ResearchQuestionPage() {
-  const { state, updateResearchQuestion } = useWorkshop();
+  const { state, updateResearchQuestion, updateConceptMatrix } = useWorkshop();
   const rq = state.researchQuestion;
+  const reportTitle = state.conceptMatrix.title;
+
+  const resolveResearchQuestionPrompt = useCallback(
+    (item) =>
+      applyResearchQuestionPromptPlaceholders(item.prompt, {
+        title: reportTitle,
+        mainQuestion: rq.mainQuestion,
+        subQuestions: rq.subQuestions,
+        keywords: rq.keywords,
+      }),
+    [reportTitle, rq.mainQuestion, rq.subQuestions, rq.keywords]
+  );
 
   return (
     <PageLayout>
@@ -19,14 +33,22 @@ export default function ResearchQuestionPage() {
         subtitle="Definieren Sie Ihre Leitfrage und erste Suchbegriffe. Diese Grundlage steuert Ihre gesamte systematische Recherche und die spätere Auswertung."
       />
 
-      <PageToolGrid
-        intro="Hilfen zur Schärfung und Strukturierung Ihrer Fragestellung — öffnen in einem neuen Tab."
-        tools={PAGE_TOOL_LINKS.researchQuestion}
-      />
-
-      <PromptSection pageKey="researchQuestion" />
-
       <div className="mb-6 space-y-6">
+        <SectionCard title="Titel Ihrer Recherche">
+          <p className="mb-2 text-sm text-slate-600">
+            Dieser Name erscheint als Hauptüberschrift in der Ergebnisübersicht (Druck/PDF) und über der Konzeptmatrix
+            — anstelle des Platzhalters „Ihr Forschungsthema“.
+          </p>
+          <input
+            type="text"
+            value={reportTitle}
+            onChange={(e) => updateConceptMatrix({ title: e.target.value })}
+            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-800 outline-none focus:border-indigo-400"
+            placeholder="z. B. Kurztitel oder Thema Ihrer SLR"
+            autoComplete="off"
+          />
+        </SectionCard>
+
         <InfoBox title="Hinweis">
           <p>
             Eine präzise Forschungsfrage hilft bei der Suchstrategie und bei der Einordnung der Literatur in der
@@ -64,6 +86,13 @@ export default function ResearchQuestionPage() {
           />
         </SectionCard>
       </div>
+
+      <PageToolGrid
+        intro="KI-Tools zur Ideenfindung und Strukturierung Ihrer Forschungsfrage — öffnen in einem neuen Tab."
+        tools={PAGE_TOOL_LINKS.researchQuestion}
+      />
+
+      <PromptSection pageKey="researchQuestion" resolvePrompt={resolveResearchQuestionPrompt} />
     </PageLayout>
   );
 }

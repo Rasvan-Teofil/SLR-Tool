@@ -1,6 +1,6 @@
 /**
  * KI-Prompt-Vorlagen je Arbeitsschritt (zentral pflegbar).
- * Seiten binden über denselben Schlüssel wie PAGE_TOOL_LINKS ein: researchQuestion | searchStrategy | conceptMatrix | synthesis
+ * Seiten binden über denselben Schlüssel wie PAGE_TOOL_LINKS in toolsConfig.js ein: researchQuestion | searchStrategy | conceptMatrix | synthesis
  *
  * Felder:
  * - id: stabiler Schlüssel
@@ -209,6 +209,35 @@ Bleiben Sie vorsichtig bei Kausalclaims — nur dort, wo die Literatur das hergi
     },
   ],
 };
+
+/** Neutraler Platzhalter für leere Formularfelder (Schritt 1, Prompt-Ausgabe). */
+export const RESEARCH_QUESTION_EMPTY_PLACEHOLDER = "[noch nicht ausgefüllt]";
+
+/**
+ * Ersetzt nur die markierten Platzhalter in den Vorlagen aus `researchQuestion`.
+ * @param {string} template
+ * @param {{ title?: string, mainQuestion?: string, subQuestions?: string, keywords?: string }} fields
+ */
+export function applyResearchQuestionPromptPlaceholders(template, fields) {
+  const title = (fields.title ?? "").trim();
+  const mainQuestion = (fields.mainQuestion ?? "").trim();
+  const subQuestions = (fields.subQuestions ?? "").trim();
+  const keywords = (fields.keywords ?? "").trim();
+
+  const parts = [];
+  if (title) parts.push(`Titel / Themengebiet: ${title}`);
+  if (subQuestions) parts.push(`Unterfragen / Teilziele:\n${subQuestions}`);
+  if (keywords) parts.push(`Schlüsselbegriffe:\n${keywords}`);
+  const themaKontext = parts.length > 0 ? parts.join("\n\n") : RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+
+  const leitfrage = mainQuestion || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+
+  return template
+    .replaceAll("[THEMA / KONTEXT]", themaKontext)
+    .replaceAll("[AKTUELLE FRAGE]", leitfrage)
+    .replaceAll("[KONTEXT, z. B. Branche, Theorie, praktische Relevanz]", themaKontext)
+    .replaceAll("[LEITFRAGE]", leitfrage);
+}
 
 /** Gültige Seitenschlüssel (für Typisierung/Erweiterung im Team) */
 export const AI_PROMPT_PAGE_KEYS = Object.keys(AI_PROMPTS_BY_PAGE);

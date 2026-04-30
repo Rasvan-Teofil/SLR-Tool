@@ -4,8 +4,9 @@ import PromptCard from "./PromptCard";
 /**
  * @param {keyof typeof AI_PROMPTS_BY_PAGE} pageKey
  * @param {string | null} [intro] — optional; Standard kein Fließtext (kompakte UI)
+ * @param {(item: { id: string, title: string, prompt: string }) => string} [resolvePrompt] — optional; z. B. Schritt 1 mit Formularwerten
  */
-export default function PromptSection({ pageKey, intro = null }) {
+export default function PromptSection({ pageKey, intro = null, resolvePrompt = null }) {
   const prompts = AI_PROMPTS_BY_PAGE[pageKey];
   if (!prompts?.length) return null;
 
@@ -22,9 +23,10 @@ export default function PromptSection({ pageKey, intro = null }) {
       {intro ? <p className="mb-3 text-xs leading-snug text-slate-600">{intro}</p> : null}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {prompts.map((item) => (
-          <PromptCard key={item.id} title={item.title} prompt={item.prompt} />
-        ))}
+        {prompts.map((item) => {
+          const promptText = resolvePrompt ? resolvePrompt(item) : item.prompt;
+          return <PromptCard key={item.id} title={item.title} prompt={promptText} />;
+        })}
       </div>
     </section>
   );

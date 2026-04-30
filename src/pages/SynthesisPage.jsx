@@ -4,7 +4,7 @@ import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
 import InfoBox from "../components/InfoBox";
 import SectionCard from "../components/SectionCard";
-import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
+import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 
 const fieldClass =
@@ -23,7 +23,7 @@ export default function SynthesisPage() {
       />
 
       <PageToolGrid
-        intro="Methoden und Schreibhilfen für die Einordnung der Literatur — ergänzend zu Ihrer Matrix."
+        intro="KI-Tools zum Zusammenführen von Evidenz, Erkennen von Konflikten und Formulieren Ihrer SLR-Synthese — öffnen in einem neuen Tab."
         tools={PAGE_TOOL_LINKS.synthesis}
       />
 

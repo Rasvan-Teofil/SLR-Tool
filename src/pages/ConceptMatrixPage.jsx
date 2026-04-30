@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import PageLayout from "../components/PageLayout";
 import PageToolGrid from "../components/PageToolGrid";
 import PromptSection from "../components/PromptSection";
-import { PAGE_TOOL_LINKS } from "../config/pageToolLinks";
+import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 import {
   STATUS_CONFIG,
@@ -216,7 +216,7 @@ export default function ConceptMatrixPage() {
       </header>
 
       <PageToolGrid
-        intro="Screening-Hilfen, Originalquelle zur Konzeptmatrix und Werkzeuge für die Extraktion."
+        intro="KI-Tools zum Lesen, Extrahieren und vergleichenden Einordnen Ihrer Papers für die Matrix — öffnen in einem neuen Tab."
         tools={PAGE_TOOL_LINKS.conceptMatrix}
       />
 

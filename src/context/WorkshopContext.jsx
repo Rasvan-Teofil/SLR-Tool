@@ -19,10 +19,6 @@ function createInitialSearchStrategy() {
     searchString: "",
     inclusionCriteria: "",
     exclusionCriteria: "",
-    prismaIdentification: "",
-    prismaScreening: "",
-    prismaEligibility: "",
-    prismaIncluded: "",
     notes: "",
     prismaFlow: createInitialPrismaFlow(),
     /** @type {null | { fileName: string, mimeType: string, dataUrl: string, uploadedAt: string }} */

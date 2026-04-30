@@ -62,7 +62,7 @@ export default function DashboardPage() {
     <PageLayout>
       <div className="mb-6 flex flex-col gap-4 print:hidden sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 6 – Ergebnisübersicht</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 5 – Ergebnisübersicht</p>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Ihre SLR-Ergebnisübersicht</h1>
           <p className="mt-1 text-sm text-slate-600">
             Zum Nachschlagen beim Schreiben und Reflektieren. Als PDF über den Browser-Druckdialog speichern.
@@ -121,18 +121,6 @@ export default function DashboardPage() {
             </SectionCard>
           </div>
           <div className="mt-4 space-y-4">
-            <SectionCard title="PRISMA: Identification">
-              <Prose>{searchStrategy.prismaIdentification}</Prose>
-            </SectionCard>
-            <SectionCard title="PRISMA: Screening">
-              <Prose>{searchStrategy.prismaScreening}</Prose>
-            </SectionCard>
-            <SectionCard title="PRISMA: Eligibility (full text)">
-              <Prose>{searchStrategy.prismaEligibility}</Prose>
-            </SectionCard>
-            <SectionCard title="PRISMA: Included studies">
-              <Prose>{searchStrategy.prismaIncluded}</Prose>
-            </SectionCard>
             <SectionCard title="PRISMA flow diagram">
               {searchStrategy.prismaDiagramAsset ? (
                 <div className="mb-4 print:break-inside-avoid">

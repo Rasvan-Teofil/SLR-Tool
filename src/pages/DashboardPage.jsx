@@ -77,7 +77,7 @@ export default function DashboardPage() {
             {brand.productName} · Systematische Literaturübersicht
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 print:mt-1 print:text-xl">
-            {conceptMatrix.title}
+            {conceptMatrix.title?.trim() || "Konzeptmatrix"}
           </h1>
           {conceptMatrix.subtitle?.trim() ? (
             <p className="mt-2 text-sm text-slate-600 print:mt-1 print:text-xs">{conceptMatrix.subtitle.trim()}</p>
@@ -85,24 +85,32 @@ export default function DashboardPage() {
           <p className="mt-4 text-xs text-slate-500 print:mt-2">Stand: {today}</p>
         </header>
 
-        <ReportSection id="forschungsfrage" title="1. Forschungsfrage">
-          <SectionCard title="Leitforschungsfrage">
-            <Prose>{researchQuestion.mainQuestion}</Prose>
-          </SectionCard>
-          {researchQuestion.subQuestions ? (
-            <div className="mt-4">
+        <ReportSection id="forschungsfrage" title="1. Forschungsfrage (PICOC-orientiert)">
+          <div className="space-y-4">
+            {(researchQuestion.picocNotes ?? "").trim() ? (
+              <SectionCard title="PICOC-Elemente (Stichpunkte)">
+                <Prose emptyText="">{researchQuestion.picocNotes}</Prose>
+              </SectionCard>
+            ) : null}
+            {(researchQuestion.firstIdea ?? "").trim() ? (
+              <SectionCard title="Erste Idee / Themenskizze">
+                <Prose emptyText="">{researchQuestion.firstIdea}</Prose>
+              </SectionCard>
+            ) : null}
+            <SectionCard title="Leitforschungsfrage">
+              <Prose>{researchQuestion.mainQuestion}</Prose>
+            </SectionCard>
+            {researchQuestion.subQuestions ? (
               <SectionCard title="Unterfragen / Teilziele">
                 <Prose emptyText="">{researchQuestion.subQuestions}</Prose>
               </SectionCard>
-            </div>
-          ) : null}
-          {researchQuestion.keywords ? (
-            <div className="mt-4">
+            ) : null}
+            {researchQuestion.keywords ? (
               <SectionCard title="Schlüsselbegriffe">
                 <Prose emptyText="">{researchQuestion.keywords}</Prose>
               </SectionCard>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </ReportSection>
 
         <ReportSection id="suchstrategie" title="2. Suchstrategie">
@@ -110,14 +118,19 @@ export default function DashboardPage() {
             <SectionCard title="Datenbanken & Quellen">
               <Prose>{searchStrategy.databases}</Prose>
             </SectionCard>
-            <SectionCard title="Suchstring">
-              <Prose>{searchStrategy.searchString}</Prose>
+            <SectionCard title="Synonyme / Suchbegriffe je Konzept">
+              <Prose>{searchStrategy.synonyms}</Prose>
             </SectionCard>
           </div>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <SectionCard title="Suchstring / Suchlogik">
+              <Prose>{searchStrategy.searchString}</Prose>
+            </SectionCard>
             <SectionCard title="Einschlusskriterien">
               <Prose>{searchStrategy.inclusionCriteria}</Prose>
             </SectionCard>
+          </div>
+          <div className="mt-4">
             <SectionCard title="Ausschlusskriterien">
               <Prose>{searchStrategy.exclusionCriteria}</Prose>
             </SectionCard>
@@ -154,29 +167,21 @@ export default function DashboardPage() {
           </div>
         </ReportSection>
 
-        <ReportSection id="synthese" title="3. Synthese">
-          <SectionCard title="Kategorien (Synthese)">
-            <Prose emptyText="">{synthesis.categoryNotes}</Prose>
-          </SectionCard>
-          {synthesis.codingGuide ? (
-            <div className="mt-4">
-              <SectionCard title="Kodierleitfaden">
-                <Prose emptyText="">{synthesis.codingGuide}</Prose>
-              </SectionCard>
-            </div>
-          ) : null}
-          <div className="mt-4">
-            <SectionCard title="Kernerkenntnisse">
-              <Prose>{synthesis.notes}</Prose>
+        <ReportSection id="analyse-codierung" title="3. Analyse & Codierung">
+          <div className="space-y-4">
+            <SectionCard title="Analysiertes Material">
+              <Prose emptyText="">{synthesis.material}</Prose>
+            </SectionCard>
+            <SectionCard title="Vorläufige Kategorien / Kategoriensystem">
+              <Prose emptyText="">{synthesis.categoryNotes}</Prose>
+            </SectionCard>
+            <SectionCard title="Kodierleitfaden nach Mayring">
+              <Prose emptyText="">{synthesis.codingGuide}</Prose>
+            </SectionCard>
+            <SectionCard title="Testcodierung / Anwendung auf Beispielpaper">
+              <Prose emptyText="">{synthesis.testCoding}</Prose>
             </SectionCard>
           </div>
-          {synthesis.implications ? (
-            <div className="mt-4">
-              <SectionCard title="Implikationen & nächste Schritte">
-                <Prose emptyText="">{synthesis.implications}</Prose>
-              </SectionCard>
-            </div>
-          ) : null}
         </ReportSection>
 
         <ReportSection id="konzeptmatrix" title="4. Konzeptmatrix" allowPageBreak>

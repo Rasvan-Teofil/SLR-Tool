@@ -5,6 +5,7 @@ import ConceptMatrixPage from "./pages/ConceptMatrixPage";
 import DashboardPage from "./pages/DashboardPage";
 import ResearchQuestionPage from "./pages/ResearchQuestionPage";
 import ResourcesPage from "./pages/ResourcesPage";
+import StartPage from "./pages/StartPage";
 import SearchStrategyPage from "./pages/SearchStrategyPage";
 import SynthesisPage from "./pages/SynthesisPage";
 
@@ -14,7 +15,8 @@ export default function App() {
       <WorkshopProvider>
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path="/" element={<ResearchQuestionPage />} />
+            <Route path="/" element={<StartPage />} />
+            <Route path="/forschungsfrage" element={<ResearchQuestionPage />} />
             <Route path="/suchstrategie" element={<SearchStrategyPage />} />
             <Route path="/konzeptmatrix" element={<ConceptMatrixPage />} />
             <Route path="/synthese" element={<SynthesisPage />} />

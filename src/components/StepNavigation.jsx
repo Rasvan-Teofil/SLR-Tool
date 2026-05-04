@@ -13,11 +13,11 @@ export default function StepNavigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const currentIndex = stepIndexForPath(location.pathname);
+  const currentStep = WORKSHOP_STEPS[currentIndex];
   const procIdx = processIndexForPath(location.pathname);
-  const isSupplementary = procIdx === null;
-  const progress = isSupplementary
-    ? 100
-    : Math.round(((procIdx + 1) / PROCESS_STEP_TOTAL) * 100);
+  const isPrelude = currentStep?.isPrelude === true;
+  const isResources = procIdx === null && !isPrelude;
+  const progress = isPrelude ? 0 : isResources ? 100 : Math.round(((procIdx + 1) / PROCESS_STEP_TOTAL) * 100);
 
   function goRelative(delta) {
     const next = currentIndex + delta;
@@ -44,7 +44,9 @@ export default function StepNavigation() {
         <div className="min-w-0">
           <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
           <p className="truncate text-xs font-semibold text-slate-800 sm:text-sm">
-            {isSupplementary ? (
+            {isPrelude ? (
+              <>Start — Vorüberlegung (noch kein Arbeitsschritt 1–5)</>
+            ) : isResources ? (
               <>Referenz (ohne Arbeitsschritt): {WORKSHOP_STEPS[currentIndex]?.label}</>
             ) : (
               <>

@@ -10,12 +10,17 @@ function createInitialResearchQuestion() {
     mainQuestion: "",
     subQuestions: "",
     keywords: "",
+    /** Optional: Stichpunkte zu PICOC für KI-Prompts und Bericht */
+    picocNotes: "",
+    /** Optional: erste Idee / Themenskizze vor der Leitfrage */
+    firstIdea: "",
   };
 }
 
 function createInitialSearchStrategy() {
   return {
     databases: "",
+    synonyms: "",
     searchString: "",
     inclusionCriteria: "",
     exclusionCriteria: "",
@@ -28,10 +33,12 @@ function createInitialSearchStrategy() {
 
 function createInitialSynthesis() {
   return {
-    notes: "",
-    implications: "",
     categoryNotes: "",
     codingGuide: "",
+    material: "",
+    testCoding: "",
+    /** Optional: Textauszug für den Test-Prompt ([TEXTAUSZUG]) */
+    testTextExcerpt: "",
   };
 }
 

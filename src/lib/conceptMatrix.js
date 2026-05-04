@@ -48,7 +48,7 @@ export function ratingToPrintSymbol(status) {
 
 export function createInitialConceptMatrixData() {
   return {
-    title: "Ihr Forschungsthema",
+    title: "",
     subtitle: "",
     categories: [
       {

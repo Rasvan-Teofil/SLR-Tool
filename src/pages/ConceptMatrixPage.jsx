@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import PageLayout from "../components/PageLayout";
-import PageToolGrid from "../components/PageToolGrid";
+import KiQuickLinksBar from "../components/KiQuickLinksBar";
 import PromptSection from "../components/PromptSection";
 import ResearchGapsTypesInfo from "../components/ResearchGapsTypesInfo";
-import { PAGE_TOOL_LINKS } from "../config/toolsConfig";
+import { CONCEPT_MATRIX_AI_EXTRA_TOOLS } from "../config/toolsConfig";
 import { useWorkshop } from "../context/WorkshopContext";
 import {
   STATUS_CONFIG,
@@ -202,19 +202,29 @@ export default function ConceptMatrixPage() {
 
   return (
     <PageLayout>
-      <p className="mb-4 text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 4 – Konzeptmatrix</p>
-      <header className="mb-5">
+      <header className="mb-6">
+        <p className="mb-1 text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 4 – Konzeptmatrix</p>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-800 md:text-3xl">Konzeptmatrix</h1>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+          Die Konzeptmatrix hilft, Papers, Kategorien und Konzepte systematisch gegenüberzustellen: Befunde je Konzept
+          eintragen, Abdeckung erkennen und Forschungslücken sichtbar machen.
+        </p>
+        <label className="mt-5 block text-sm font-medium text-slate-700" htmlFor="matrix-report-title">
+          Titel für Bericht und Deckblatt (Schritt 5)
+        </label>
         <input
+          id="matrix-report-title"
           value={data.title}
           onChange={(e) => updateData((current) => ({ ...current, title: e.target.value }))}
-          className="w-full bg-transparent text-3xl font-bold tracking-tight text-slate-800 outline-none"
+          className="mt-1 w-full max-w-2xl rounded-lg border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 outline-none focus:border-indigo-400"
+          placeholder="z. B. Kurztitel deiner SLR"
+          autoComplete="off"
         />
       </header>
 
-      <PageToolGrid
-        intro="KI-Tools zum Lesen, Extrahieren und vergleichenden Einordnen Ihrer Papers für die Matrix — öffnen in einem neuen Tab."
-        tools={PAGE_TOOL_LINKS.conceptMatrix}
-      />
+      <div className="mb-6">
+        <KiQuickLinksBar title="KI-Schnellzugriff" extraTools={CONCEPT_MATRIX_AI_EXTRA_TOOLS} />
+      </div>
 
       <PromptSection pageKey="conceptMatrix" />
 
@@ -235,7 +245,7 @@ export default function ConceptMatrixPage() {
           <div>
             <h2 className="mb-3 text-sm font-semibold text-slate-700">Webster &amp; Watson Struktur:</h2>
             <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">
-              <li>Hauptkategorien = übergeordnete Konzepte</li>
+              <li>Hauptkategorien = übergeordnete Konzepte (anschlussfähig an Kategorien aus dem Schritt Analyse und Codierung)</li>
               <li>Unterkategorien = spezifische Aspekte</li>
               <li>Hierarchische Organisation der Literatur</li>
               <li>Klicken Sie auf eine Matrix-Zelle, um durch die Bewertungsstufen zu wechseln</li>

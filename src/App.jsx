@@ -1,4 +1,5 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { WorkshopProvider } from "./context/WorkshopContext";
 import AppLayout from "./layout/AppLayout";
 import ConceptMatrixPage from "./pages/ConceptMatrixPage";
@@ -26,6 +27,7 @@ export default function App() {
           </Route>
         </Routes>
       </WorkshopProvider>
+      <Analytics />
     </HashRouter>
   );
 }

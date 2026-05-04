@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { getFlattenedSubcategories, ratingToPrintSymbol } from "../lib/conceptMatrix";
+import { getCategoryConceptCount, getFlattenedSubcategories, ratingToPrintSymbol } from "../lib/conceptMatrix";
 
 /**
  * Nur für Druck/PDF: extrem kompakte Matrix (schmale Spalten, x / / − / leer).
@@ -28,14 +28,14 @@ export default function ConceptMatrixPrintTable({ categories, studies, ratings, 
                 colSpan={Math.max(flattenedSubcategories.length, 1)}
                 className="border border-slate-600 bg-slate-300 text-center text-[7px] font-semibold leading-tight print:text-[7px]"
               >
-                Konzepte (Unterkategorien als Spalten)
+                Konzepte
               </th>
             </tr>
             <tr>
               {categories.map((category) => (
                 <th
                   key={category.id}
-                  colSpan={Math.max(category.subcategories.length, 1)}
+                  colSpan={getCategoryConceptCount(category)}
                   className="border border-slate-600 bg-slate-200 px-0.5 py-0.5 text-center text-[6.5px] font-semibold leading-none print:text-[6.5px]"
                   title={category.name}
                 >

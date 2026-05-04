@@ -167,7 +167,7 @@ export default function DashboardPage() {
           </div>
         </ReportSection>
 
-        <ReportSection id="analyse-codierung" title="3. Analyse & Codierung">
+        <ReportSection id="analyse-codierung" title="3. Analyse & Kodierung">
           <div className="space-y-4">
             <SectionCard title="Analysiertes Material">
               <Prose emptyText="">{synthesis.material}</Prose>
@@ -211,7 +211,7 @@ export default function DashboardPage() {
 
           <p className="mt-3 text-xs text-slate-500 print:text-slate-600">
             Kompakt: {statistics.studies} Studien · {statistics.mainCategories} Hauptkategorien ·{" "}
-            {statistics.subcategories} Unterkategorien · {statistics.ratings} gesetzte Bewertungen (ohne „noch nicht
+            {statistics.subcategories} Konzepte · {statistics.ratings} gesetzte Bewertungen (ohne „noch nicht
             bewertet“).
           </p>
 

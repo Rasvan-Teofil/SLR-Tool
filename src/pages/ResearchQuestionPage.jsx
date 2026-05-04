@@ -120,6 +120,20 @@ export default function ResearchQuestionPage() {
             className={fieldClass}
             placeholder="z. B. Welchen Einfluss hat … auf … im Kontext von …?"
           />
+          <div className="mt-4 rounded-md border border-slate-200 bg-white px-3 py-3">
+            <h3 className="text-sm font-semibold text-slate-800">Qualitätsmerkmale</h3>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">Checkliste</p>
+            <ul className="mt-2 grid gap-x-4 gap-y-1.5 text-sm text-slate-700 sm:grid-cols-2">
+              <li>✓ Klar</li>
+              <li>✓ Präzise</li>
+              <li>✓ Neutral</li>
+              <li>✓ Durchführbar</li>
+              <li>✓ Messbar</li>
+              <li>✓ Relevant für Zielgruppe und Fachbereich</li>
+              <li>✓ Forschungslücke</li>
+              <li>✓ Ethisch</li>
+            </ul>
+          </div>
         </SectionCard>
 
         <SectionCard title="Unterfragen / Teilziele (optional)">

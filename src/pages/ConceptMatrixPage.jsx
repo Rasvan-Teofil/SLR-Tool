@@ -9,11 +9,13 @@ import {
   STATUS_CONFIG,
   STATUS_ORDER,
   buildCsvRows,
+  categoryUsesSubcategories,
   computeGapItems,
   computeStatistics,
   csvTextFromMatrix,
   downloadFile,
   escapeCsv,
+  getCategoryConceptCount,
   getFlattenedSubcategories,
   normalizeRatings,
 } from "../lib/conceptMatrix";
@@ -95,12 +97,8 @@ export default function ConceptMatrixPage() {
           id: crypto.randomUUID(),
           name: `Hauptkategorie ${current.categories.length + 1}`,
           expanded: true,
-          subcategories: [
-            {
-              id: crypto.randomUUID(),
-              name: `Unterkategorie ${current.categories.length + 1}.1`,
-            },
-          ],
+          useSubcategories: false,
+          subcategories: [],
         },
       ],
     }));
@@ -131,19 +129,45 @@ export default function ConceptMatrixPage() {
     }));
   }
 
+  function toggleCategorySubcategories(categoryId, useSubcategories) {
+    updateData((current) => ({
+      ...current,
+      categories: current.categories.map((category, categoryIndex) => {
+        if (category.id !== categoryId) return category;
+        const existingSubcategories = category.subcategories ?? [];
+        return {
+          ...category,
+          expanded: useSubcategories ? true : category.expanded,
+          useSubcategories,
+          subcategories:
+            useSubcategories && existingSubcategories.length === 0
+              ? [
+                  {
+                    id: crypto.randomUUID(),
+                    name: `Unterkategorie ${categoryIndex + 1}.1`,
+                  },
+                ]
+              : existingSubcategories,
+        };
+      }),
+    }));
+  }
+
   function addSubcategory(categoryId) {
     updateData((current) => ({
       ...current,
       categories: current.categories.map((category) => {
         if (category.id !== categoryId) return category;
+        const subcategories = category.subcategories ?? [];
         return {
           ...category,
           expanded: true,
+          useSubcategories: true,
           subcategories: [
-            ...category.subcategories,
+            ...subcategories,
             {
               id: crypto.randomUUID(),
-              name: `Unterkategorie ${current.categories.findIndex((item) => item.id === categoryId) + 1}.${category.subcategories.length + 1}`,
+              name: `Unterkategorie ${current.categories.findIndex((item) => item.id === categoryId) + 1}.${subcategories.length + 1}`,
             },
           ],
         };
@@ -169,15 +193,15 @@ export default function ConceptMatrixPage() {
   function removeSubcategory(categoryId, subcategoryId) {
     updateData((current) => ({
       ...current,
-      categories: current.categories
-        .map((category) => {
-          if (category.id !== categoryId) return category;
-          return {
-            ...category,
-            subcategories: category.subcategories.filter((subcategory) => subcategory.id !== subcategoryId),
-          };
-        })
-        .filter((category) => category.subcategories.length > 0),
+      categories: current.categories.map((category) => {
+        if (category.id !== categoryId) return category;
+        const subcategories = (category.subcategories ?? []).filter((subcategory) => subcategory.id !== subcategoryId);
+        return {
+          ...category,
+          useSubcategories: subcategories.length > 0 ? category.useSubcategories !== false : false,
+          subcategories,
+        };
+      }),
     }));
   }
 
@@ -245,9 +269,9 @@ export default function ConceptMatrixPage() {
           <div>
             <h2 className="mb-3 text-sm font-semibold text-slate-700">Webster &amp; Watson Struktur:</h2>
             <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">
-              <li>Hauptkategorien = übergeordnete Konzepte (anschlussfähig an Kategorien aus dem Schritt Analyse und Codierung)</li>
-              <li>Unterkategorien = spezifische Aspekte</li>
-              <li>Hierarchische Organisation der Literatur</li>
+              <li>Hauptkategorien = übergeordnete Konzepte (anschlussfähig an Kategorien aus dem Schritt Analyse und Kodierung)</li>
+              <li>Unterkategorien = optionale spezifische Aspekte</li>
+              <li>Kategorien ohne Unterkategorien werden direkt bewertet</li>
               <li>Klicke auf eine Matrix-Zelle, um durch die Bewertungsstufen zu wechseln</li>
             </ul>
           </div>
@@ -302,71 +326,91 @@ export default function ConceptMatrixPage() {
         <h3 className="mb-4 text-sm font-semibold text-slate-800">Konzepthierarchie verwalten:</h3>
 
         <div className="space-y-4">
-          {categories.map((category) => (
-            <div key={category.id} className="rounded-lg border border-slate-200 bg-white p-3">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => toggleCategory(category.id)}
-                      className="text-slate-500 transition hover:text-slate-700"
-                    >
-                      {category.expanded ? "⌄" : "›"}
-                    </button>
-                    <input
-                      value={category.name}
-                      onChange={(e) => updateCategoryName(category.id, e.target.value)}
-                      className="w-full max-w-md rounded-md border border-transparent px-2 py-1 font-medium text-blue-700 outline-none hover:border-slate-200 focus:border-slate-300"
-                    />
+          {categories.map((category) => {
+            const hasActiveSubcategories = categoryUsesSubcategories(category);
+            const subcategories = category.subcategories ?? [];
+
+            return (
+              <div key={category.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      {hasActiveSubcategories ? (
+                        <button
+                          type="button"
+                          onClick={() => toggleCategory(category.id)}
+                          className="text-slate-500 transition hover:text-slate-700"
+                        >
+                          {category.expanded ? "⌄" : "›"}
+                        </button>
+                      ) : (
+                        <span className="w-3" />
+                      )}
+                      <input
+                        value={category.name}
+                        onChange={(e) => updateCategoryName(category.id, e.target.value)}
+                        className="w-full max-w-md rounded-md border border-transparent px-2 py-1 font-medium text-blue-700 outline-none hover:border-slate-200 focus:border-slate-300"
+                      />
+                    </div>
+
+                    {hasActiveSubcategories && category.expanded ? (
+                      <div className="mt-2 ml-8 space-y-2 text-sm text-slate-700">
+                        {subcategories.map((subcategory) => (
+                          <div key={subcategory.id} className="flex items-center justify-between gap-3">
+                            <div className="flex w-full items-center gap-3">
+                              <span className="text-slate-400">→</span>
+                              <input
+                                value={subcategory.name}
+                                onChange={(e) => updateSubcategoryName(category.id, subcategory.id, e.target.value)}
+                                className="w-full rounded-md border border-transparent px-2 py-1 outline-none hover:border-slate-200 focus:border-slate-300"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeSubcategory(category.id, subcategory.id)}
+                              className="text-red-500 transition hover:text-red-600"
+                              title="Unterkategorie löschen"
+                            >
+                              🗑
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
 
-                  {category.expanded && (
-                    <div className="mt-2 ml-8 space-y-2 text-sm text-slate-700">
-                      {category.subcategories.map((subcategory) => (
-                        <div key={subcategory.id} className="flex items-center justify-between gap-3">
-                          <div className="flex w-full items-center gap-3">
-                            <span className="text-slate-400">→</span>
-                            <input
-                              value={subcategory.name}
-                              onChange={(e) => updateSubcategoryName(category.id, subcategory.id, e.target.value)}
-                              className="w-full rounded-md border border-transparent px-2 py-1 outline-none hover:border-slate-200 focus:border-slate-300"
-                            />
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => removeSubcategory(category.id, subcategory.id)}
-                            className="text-red-500 transition hover:text-red-600"
-                            title="Unterkategorie löschen"
-                          >
-                            🗑
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-3 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => addSubcategory(category.id)}
-                    className="rounded bg-green-100 px-3 py-1 text-xs font-medium text-green-700 hover:bg-green-200"
-                  >
-                    + Unterkategorie
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => removeCategory(category.id)}
-                    className="text-red-500 transition hover:text-red-600"
-                    title="Hauptkategorie löschen"
-                  >
-                    🗑
-                  </button>
+                  <div className="flex flex-wrap items-center justify-end gap-2 pt-1">
+                    <label className="inline-flex items-center gap-2 rounded bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={hasActiveSubcategories}
+                        onChange={(e) => toggleCategorySubcategories(category.id, e.target.checked)}
+                        className="h-3.5 w-3.5 accent-blue-600"
+                      />
+                      Unterkategorien
+                    </label>
+                    {hasActiveSubcategories ? (
+                      <button
+                        type="button"
+                        onClick={() => addSubcategory(category.id)}
+                        className="rounded bg-green-100 px-3 py-1 text-xs font-medium text-green-700 hover:bg-green-200"
+                      >
+                        + Unterkategorie
+                      </button>
+                    ) : null}
+                    <button
+                      type="button"
+                      onClick={() => removeCategory(category.id)}
+                      className="text-red-500 transition hover:text-red-600"
+                      title="Hauptkategorie löschen"
+                    >
+                      🗑
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -392,7 +436,7 @@ export default function ConceptMatrixPage() {
                 {categories.map((category) => (
                   <th
                     key={category.id}
-                    colSpan={Math.max(category.subcategories.length, 1)}
+                    colSpan={getCategoryConceptCount(category)}
                     className="border border-slate-300 bg-indigo-700 px-4 py-3 text-center font-semibold text-white"
                   >
                     {category.name}
@@ -473,7 +517,7 @@ export default function ConceptMatrixPage() {
           },
           {
             value: statistics.subcategories,
-            label: "Unterkategorien",
+            label: "Konzepte",
             bg: "bg-purple-50",
             text: "text-purple-700",
           },

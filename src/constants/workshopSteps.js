@@ -6,7 +6,7 @@ export const WORKSHOP_STEPS = [
   { path: "/", label: "Start", short: null, processIndex: null, isPrelude: true },
   { path: "/forschungsfrage", label: "Forschungsfrage", short: "1", processIndex: 0 },
   { path: "/suchstrategie", label: "Suchstrategie", short: "2", processIndex: 1 },
-  { path: "/synthese", label: "Analyse & Codierung", short: "3", processIndex: 2 },
+  { path: "/synthese", label: "Analyse & Kodierung", short: "3", processIndex: 2 },
   { path: "/konzeptmatrix", label: "Konzeptmatrix", short: "4", processIndex: 3 },
   { path: "/dashboard", label: "Ergebnisübersicht", short: "5", processIndex: 4 },
   { path: "/ressourcen", label: "Ressourcen & Tools", short: null, processIndex: null },

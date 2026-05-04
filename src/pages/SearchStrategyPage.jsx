@@ -87,6 +87,14 @@ export default function SearchStrategyPage() {
           </ol>
         </InfoBox>
 
+        <PromptSection
+          pageKey="searchStrategyCriteriaDraft"
+          sectionTitle="KI: Kriterien entwickeln"
+          intro="Übernimmt Forschungsfrage, Kontext und vorhandene Kriterien."
+          resolvePrompt={resolveSearchStrategyPrompt}
+          gridClassName="md:grid-cols-2"
+        />
+
         <div className="grid gap-6 md:grid-cols-2">
           <SectionCard title="Einschlusskriterien">
             <textarea
@@ -107,6 +115,14 @@ export default function SearchStrategyPage() {
             />
           </SectionCard>
         </div>
+
+        <PromptSection
+          pageKey="searchStrategyCriteriaScreening"
+          sectionTitle="KI: Screening anwenden"
+          intro="Übernimmt deine Ein- und Ausschlusskriterien für Titel-/Abstract- und Volltext-Screening."
+          resolvePrompt={resolveSearchStrategyPrompt}
+          gridClassName="md:grid-cols-2"
+        />
 
         <PrismaExternalEmbed />
 

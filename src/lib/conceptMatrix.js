@@ -55,6 +55,7 @@ export function createInitialConceptMatrixData() {
         id: crypto.randomUUID(),
         name: "Hauptkategorie 1",
         expanded: true,
+        useSubcategories: true,
         subcategories: [
           { id: crypto.randomUUID(), name: "Unterkategorie 1.1" },
           { id: crypto.randomUUID(), name: "Unterkategorie 1.2" },
@@ -64,6 +65,7 @@ export function createInitialConceptMatrixData() {
         id: crypto.randomUUID(),
         name: "Hauptkategorie 2",
         expanded: true,
+        useSubcategories: true,
         subcategories: [
           { id: crypto.randomUUID(), name: "Unterkategorie 2.1" },
           { id: crypto.randomUUID(), name: "Unterkategorie 2.2" },
@@ -83,24 +85,29 @@ export function createInitialConceptMatrixData() {
 
 export function createEmptyRatings(categories, studies, existingRatings = {}) {
   const nextRatings = { ...existingRatings };
+  const visibleConcepts = getFlattenedSubcategories(categories);
 
   studies.forEach((study) => {
-    categories.forEach((category) => {
-      category.subcategories.forEach((subcategory) => {
-        const key = `${study.id}__${subcategory.id}`;
-        if (!(key in nextRatings)) {
-          nextRatings[key] = "unrated";
-        }
-      });
+    visibleConcepts.forEach((concept) => {
+      const key = `${study.id}__${concept.id}`;
+      if (!(key in nextRatings)) {
+        nextRatings[key] = "unrated";
+      }
     });
   });
 
   const validKeys = new Set();
+  const validConceptIds = new Set();
+  categories.forEach((category) => {
+    validConceptIds.add(category.id);
+    (category.subcategories ?? []).forEach((subcategory) => {
+      validConceptIds.add(subcategory.id);
+    });
+  });
+
   studies.forEach((study) => {
-    categories.forEach((category) => {
-      category.subcategories.forEach((subcategory) => {
-        validKeys.add(`${study.id}__${subcategory.id}`);
-      });
+    validConceptIds.forEach((conceptId) => {
+      validKeys.add(`${study.id}__${conceptId}`);
     });
   });
 
@@ -113,14 +120,35 @@ export function createEmptyRatings(categories, studies, existingRatings = {}) {
   return nextRatings;
 }
 
+export function categoryUsesSubcategories(category) {
+  return category.useSubcategories !== false && (category.subcategories ?? []).length > 0;
+}
+
+export function getCategoryConceptCount(category) {
+  return categoryUsesSubcategories(category) ? category.subcategories.length : 1;
+}
+
 export function getFlattenedSubcategories(categories) {
-  return categories.flatMap((category) =>
-    category.subcategories.map((subcategory) => ({
+  return categories.flatMap((category) => {
+    if (!categoryUsesSubcategories(category)) {
+      return [
+        {
+          id: category.id,
+          name: "Gesamtkategorie",
+          categoryId: category.id,
+          categoryName: category.name,
+          isCategoryLevel: true,
+        },
+      ];
+    }
+
+    return category.subcategories.map((subcategory) => ({
       ...subcategory,
       categoryId: category.id,
       categoryName: category.name,
-    }))
-  );
+      isCategoryLevel: false,
+    }));
+  });
 }
 
 export function normalizeRatings(categories, studies, ratings) {
@@ -129,7 +157,13 @@ export function normalizeRatings(categories, studies, ratings) {
 
 export function computeStatistics(categories, studies, ratings) {
   const flattenedSubcategories = getFlattenedSubcategories(categories);
-  const totalRatings = Object.values(ratings).filter((value) => value !== "unrated").length;
+  const totalRatings = studies.reduce(
+    (sum, study) =>
+      sum +
+      flattenedSubcategories.filter((concept) => (ratings[`${study.id}__${concept.id}`] ?? "unrated") !== "unrated")
+        .length,
+    0
+  );
   return {
     studies: studies.length,
     mainCategories: categories.length,
@@ -150,7 +184,7 @@ export function computeGapItems(categories, studies, ratings) {
       const coverage = Math.round(average * 100);
       return {
         id: subcategory.id,
-        label: `${subcategory.categoryName} → ${subcategory.name}`,
+        label: subcategory.isCategoryLevel ? subcategory.categoryName : `${subcategory.categoryName} → ${subcategory.name}`,
         coverage,
       };
     })
@@ -161,7 +195,7 @@ export function buildCsvRows(flattenedSubcategories, studies, ratings) {
   const header = [
     "Autor(en)",
     "Jahr",
-    ...flattenedSubcategories.map((item) => `${item.categoryName} > ${item.name}`),
+    ...flattenedSubcategories.map((item) => (item.isCategoryLevel ? item.categoryName : `${item.categoryName} > ${item.name}`)),
   ];
   const rows = studies.map((study) => [
     study.author,

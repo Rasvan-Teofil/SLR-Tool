@@ -30,8 +30,8 @@ export default function SynthesisPage() {
   return (
     <PageLayout>
       <PageHeader
-        stepLabel="Schritt 3 – Analyse & Codierung"
-        title="Analyse & Codierung"
+        stepLabel="Schritt 3 – Analyse & Kodierung"
+        title="Analyse & Kodierung"
         subtitle="Material strukturieren, Kategorien ableiten und einen Kodierleitfaden für die Konzeptmatrix vorbereiten."
       />
 
@@ -98,10 +98,8 @@ export default function SynthesisPage() {
           <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">
             <li>Kategorie-Name</li>
             <li>Definition</li>
-            <li>Einschlussregel</li>
-            <li>Ausschlussregel / Abgrenzung</li>
             <li>Ankerbeispiel aus einem Paper</li>
-            <li>Kodierregel für Zweifelsfälle</li>
+            <li>Kodierregel für Zweifelsfälle (ggf. mit Einschluss- bzw. Ausschlusskriterien)</li>
           </ul>
         </InfoBox>
 
@@ -119,7 +117,7 @@ export default function SynthesisPage() {
             onChange={(e) => updateSynthesis({ codingGuide: e.target.value })}
             rows={10}
             className={fieldClass}
-            placeholder={`Kategorie:\nDefinition:\nEinschlussregel:\nAusschlussregel / Abgrenzung:\nAnkerbeispiel aus Material:\nKodierregel für Zweifelsfälle:`}
+            placeholder={`Kategorie-Name:\nDefinition:\nAnkerbeispiel aus einem Paper:\nKodierregel für Zweifelsfälle (ggf. mit Einschluss- bzw. Ausschlusskriterien):`}
           />
         </SectionCard>
 

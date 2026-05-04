@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { STATUS_CONFIG, getFlattenedSubcategories } from "../lib/conceptMatrix";
+import { STATUS_CONFIG, getCategoryConceptCount, getFlattenedSubcategories } from "../lib/conceptMatrix";
 
 export default function ConceptMatrixReadOnlyTable({ categories, studies, ratings, caption }) {
   const flattenedSubcategories = useMemo(() => getFlattenedSubcategories(categories), [categories]);
@@ -32,7 +32,7 @@ export default function ConceptMatrixReadOnlyTable({ categories, studies, rating
               {categories.map((category) => (
                 <th
                   key={category.id}
-                  colSpan={Math.max(category.subcategories.length, 1)}
+                  colSpan={getCategoryConceptCount(category)}
                   className="border border-slate-300 bg-indigo-700 px-4 py-3 text-center font-semibold text-white"
                 >
                   {category.name}

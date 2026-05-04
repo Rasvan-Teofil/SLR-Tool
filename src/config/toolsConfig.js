@@ -126,7 +126,7 @@ export const CONCEPT_MATRIX_AI_EXTRA_TOOLS = [
   { ...SEMANTIC_SCHOLAR, id: "semantic-scholar-matrix-quick" },
 ];
 
-/** Schritt 3 Analyse & Codierung */
+/** Schritt 3 Analyse & Kodierung */
 export const ANALYSIS_CODING_AI_EXTRA_TOOLS = [
   { ...CONSENSUS, id: "consensus-analysis-quick" },
   { ...SCITE, id: "scite-analysis-quick" },

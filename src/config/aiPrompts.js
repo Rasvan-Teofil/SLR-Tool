@@ -284,6 +284,72 @@ Kurz und umsetzbar, deutsch.`,
     },
   ],
 
+  searchStrategyCriteriaDraft: [
+    {
+      id: "ss-criteria-from-question",
+      title: "Prompt 1 · Kriterien aus der Forschungsfrage ableiten",
+      prompt: `Du unterstützt mich bei der Entwicklung von Ein- und Ausschlusskriterien für eine Systematic Literature Review.
+
+Leite aus der folgenden Forschungsfrage erste Ein- und Ausschlusskriterien ab. Trenne zwischen Kriterien, die bereits im Titel/Abstract prüfbar sind, und Kriterien, die erst im Volltext beurteilt werden können.
+
+Formuliere klar, knapp und prüfbar. Erfinde keine fachlichen Anforderungen, die nicht aus der Forschungsfrage ableitbar sind.
+
+Forschungsfrage: [LEITFRAGE]
+Kontext / Ziel: [KONTEXT_ZIEL]
+
+Ausgabe: Einschlusskriterien | Ausschlusskriterien | Grenzfälle | Titel/Abstract vs. Volltext`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+    {
+      id: "ss-criteria-refine",
+      title: "Prompt 2 · Kriterien prüfen und schärfen",
+      prompt: `Prüfe die folgenden Ein- und Ausschlusskriterien kritisch.
+
+Bewerte, ob sie eindeutig, nicht redundant und direkt aus der Forschungsfrage ableitbar sind. Zeige auf, welche Kriterien zu offen oder zu streng sind und welche im Titel-/Abstract-Screening schwer prüfbar sind. Schlage präzisere Formulierungen vor.
+
+Verändere die Forschungsfrage nicht.
+
+Forschungsfrage: [LEITFRAGE]
+Einschlusskriterien: [EINSCHLUSS]
+Ausschlusskriterien: [AUSSCHLUSS]`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+  ],
+
+  searchStrategyCriteriaScreening: [
+    {
+      id: "ss-title-abstract-screening",
+      title: "Prompt 3 · Titel-/Abstract-Screening",
+      prompt: `Du bist Screening-Assistent für einen Systematic Literature Review.
+
+Entscheide anhand des folgenden Titels und Abstracts, ob die Studie die Einschlusskriterien erfüllt. Antworte NUR mit:
+
+EINSCHLIESSEN | AUSSCHLIESSEN | UNKLAR
+
+Begründe in max. 25 Wörtern. Erfinde keine Informationen. Wenn der Abstract fehlt oder unzureichend ist: antworte mit UNKLAR.
+
+Einschlusskriterien: [EINSCHLUSS]
+Ausschlusskriterien: [AUSSCHLUSS]
+Titel: [Titel einfügen] | Abstract: [Abstract einfügen]`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+    {
+      id: "ss-fulltext-screening",
+      title: "Prompt 4 · Volltext-Screening & Ausschlussgrund",
+      prompt: `Prüfe den folgenden Volltext gegen die Einschlusskriterien. Bewerte jeden Punkt einzeln mit Ja / Nein / Unklar. Formuliere anschließend einen PRISMA-konformen Ausschlussgrund, falls die Studie nicht eingeschlossen wird. Erfinde keine Informationen aus dem Text.
+
+Kriterien: [EINSCHLUSS]
+Volltext: [Volltext oder Auszug einfügen]
+
+Ausgabe: K1: ... | K2: ... | Gesamtentscheidung: ... | Ausschlussgrund: ...`,
+      toolHref: "https://chat.openai.com/",
+      toolLabel: "ChatGPT öffnen",
+    },
+  ],
+
   conceptMatrix: [
     {
       id: "cm-cluster",
@@ -303,7 +369,7 @@ Bitte:
 3. Kennzeichne, welche Kategorien sich überschneiden könnten — und wie ich sie trennen oder zusammenführen sollte.
 4. Gib eine knappe Begründung, warum diese Struktur für eine Matrix (Studien × Unterkategorien) geeignet ist.
 
-Ich werde die Vorschläge manuell in meinem ReviewKompass übernehmen und nicht automatisch verifizieren — halte die Terminologie konsistent.`,
+Ich werde die Vorschläge manuell in meinem SLR Kompass übernehmen und nicht automatisch verifizieren — halte die Terminologie konsistent.`,
       toolHref: "https://elicit.org/",
       toolLabel: "Elicit öffnen",
     },
@@ -382,7 +448,7 @@ Aufgabe:
 6. Erfinde keine neuen fachlichen Inhalte ohne Bezug zum vorhandenen Material.
 
 Ausgabe:
-Überarbeiteter Kategorienvorschlag | Begründung | Hinweise für Codierung`,
+Überarbeiteter Kategorienvorschlag | Begründung | Hinweise für Kodierung`,
       toolHref: "https://chat.openai.com/",
       toolLabel: "ChatGPT öffnen",
     },
@@ -405,10 +471,8 @@ Aufgabe:
 Erstelle für jede Kategorie:
 1. Kategorie-Name
 2. Definition
-3. Einschlussregel
-4. Ausschlussregel / Abgrenzung
-5. Hinweis für ein geeignetes Ankerbeispiel
-6. Kodierregel für Zweifelsfälle
+3. Hinweis für ein geeignetes Ankerbeispiel
+4. Kodierregel für Zweifelsfälle (ggf. mit Einschluss- bzw. Ausschlusskriterien)
 
 Wichtig:
 - Formuliere präzise und prüfbar.
@@ -515,6 +579,8 @@ export function applySearchStrategyPromptPlaceholders(template, { researchQuesti
   const leit = (rq.mainQuestion ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
   const unt = (rq.subQuestions ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
   const key = (rq.keywords ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const firstIdea = (rq.firstIdea ?? "").trim();
+  const picocNotes = (rq.picocNotes ?? "").trim();
   const db = (ss.databases ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
   const such = (ss.searchString ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
   const ein = (ss.inclusionCriteria ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
@@ -522,9 +588,17 @@ export function applySearchStrategyPromptPlaceholders(template, { researchQuesti
   const prot = (ss.notes ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
 
   const syn = (ss.synonyms ?? "").trim() || RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
+  const contextParts = [];
+  if (firstIdea) contextParts.push(`Erste Idee / Themenskizze:\n${firstIdea}`);
+  if (picocNotes) contextParts.push(`PICOC-Stichpunkte:\n${picocNotes}`);
+  if ((rq.subQuestions ?? "").trim()) contextParts.push(`Unterfragen / Teilziele:\n${rq.subQuestions.trim()}`);
+  if ((rq.keywords ?? "").trim()) contextParts.push(`Schlüsselbegriffe:\n${rq.keywords.trim()}`);
+  if ((ss.notes ?? "").trim()) contextParts.push(`Protokollnotizen:\n${ss.notes.trim()}`);
+  const contextGoal = contextParts.length > 0 ? contextParts.join("\n\n") : RESEARCH_QUESTION_EMPTY_PLACEHOLDER;
 
   return template
     .replaceAll("[LEITFRAGE]", leit)
+    .replaceAll("[KONTEXT_ZIEL]", contextGoal)
     .replaceAll("[UNTERFRAGEN]", unt)
     .replaceAll("[SCHLUESSELBEGRIFFE]", key)
     .replaceAll("[DATENBANKEN]", db)
@@ -536,7 +610,7 @@ export function applySearchStrategyPromptPlaceholders(template, { researchQuesti
 }
 
 /**
- * Schritt 3 (state: synthesis): Platzhalter für Analyse & Codierung (Material, Kategorien, Kodierleitfaden, Test).
+ * Schritt 3 (state: synthesis): Platzhalter für Analyse & Kodierung (Material, Kategorien, Kodierleitfaden, Test).
  */
 export function applySynthesisPromptPlaceholders(template, { researchQuestion, synthesis }) {
   const rq = researchQuestion || {};

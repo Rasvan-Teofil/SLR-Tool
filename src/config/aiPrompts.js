@@ -17,7 +17,7 @@ export const AI_PROMPTS_BY_PAGE = {
       title: "Thema nach PICOC strukturieren und Lücken sichtbar machen",
       description:
         "Nutzt Titel, erste Idee und PICOC-Stichpunkte — Leitfrage und weitere Felder können leer sein ([noch nicht ausgefüllt]).",
-      prompt: `Sie sind Methodenberater:in für systematische Literaturreviews (PICOC-orientiert).
+      prompt: `Du bist Methodenberater:in für systematische Literaturreviews (PICOC-orientiert).
 
 Titel der Recherche (falls vorhanden):
 [THEMA / KONTEXT]
@@ -38,10 +38,10 @@ Schlüsselbegriffe (falls vorhanden):
 [SCHLUESSELBEGRIFFE]
 
 Bitte:
-1. Strukturieren Sie das Vorhaben explizit nach PICOC (P, I, C, O, Co) — auch wenn Angaben fehlen, markieren Sie Lücken.
-2. Benennen Sie fehlende oder unklare PICOC-Elemente und schlagen Sie präzisierende Rückfragen vor.
-3. Leiten Sie daraus eine erste Leitforschungsfrage vor (ein Satz), ohne vorauszusetzen, dass sie schon im Formular steht.
-4. Skizzieren Sie kurz, wie Unterfragen und Suchbegriffe später anschlussfähig wären.
+1. Strukturiere das Vorhaben explizit nach PICOC (P, I, C, O, Co) — auch wenn Angaben fehlen, markiere Lücken.
+2. Benenne fehlende oder unklare PICOC-Elemente und schlage präzisierende Rückfragen vor.
+3. Leite daraus eine erste Leitforschungsfrage vor (ein Satz), ohne vorauszusetzen, dass sie schon im Formular steht.
+4. Skizziere kurz, wie Unterfragen und Suchbegriffe später anschlussfähig wären.
 
 Antwort strukturiert, sachlich, deutsch.`,
       toolHref: "https://chat.openai.com/",
@@ -51,7 +51,7 @@ Antwort strukturiert, sachlich, deutsch.`,
       id: "rq-idea-subquestions-picoc",
       title: "Unterfragen und Teilziele aus PICOC ableiten",
       description: "Strukturierende Unterfragen — Eingaben oben können teils leer sein.",
-      prompt: `Sie unterstützen bei der Strukturierung einer systematischen Literaturrecherche nach PICOC.
+      prompt: `Du unterstützt bei der Strukturierung einer systematischen Literaturrecherche nach PICOC.
 
 Titel der Recherche (falls vorhanden):
 [THEMA / KONTEXT]
@@ -69,9 +69,9 @@ Unterfragen / Teilziele (falls vorhanden):
 [UNTERFRAGEN]
 
 Bitte:
-1. Leiten Sie 3–6 Unterfragen oder Teilziele ab, die PICOC-Aspekte und die spätere Konzeptmatrix sinnvoll strukturieren.
-2. Kennzeichnen Sie Prioritäten (kern vs. ergänzend) und ordnen Sie jede Unterfrage einem PICOC-Bereich zu.
-3. Schlagen Sie je Unterfrage kurz vor, welche Literaturtypen oder Designs typischerweise relevant wären.
+1. Leite 3–6 Unterfragen oder Teilziele ab, die PICOC-Aspekte und die spätere Konzeptmatrix sinnvoll strukturieren.
+2. Kennzeichne Prioritäten (kern vs. ergänzend) und ordne jede Unterfrage einem PICOC-Bereich zu.
+3. Schlage je Unterfrage kurz vor, welche Literaturtypen oder Designs typischerweise relevant wären.
 
 Deutsch, knapp, nummeriert.`,
       toolHref: "https://gemini.google.com/",
@@ -81,7 +81,7 @@ Deutsch, knapp, nummeriert.`,
       id: "rq-idea-keywords-picoc",
       title: "Schlüsselbegriffe und Synonyme je PICOC-Element",
       description: "Suchnahe Begriffe entlang von P, I, C, O, Context — Felder können teils leer sein.",
-      prompt: `Sie helfen bei der Vorbereitung einer Literatursuche für eine SLR mit PICOC-Logik.
+      prompt: `Du hilfst bei der Vorbereitung einer Literatursuche für eine SLR mit PICOC-Logik.
 
 Titel der Recherche (falls vorhanden):
 [THEMA / KONTEXT]
@@ -96,9 +96,9 @@ Schlüsselbegriffe bisher (falls vorhanden):
 [SCHLUESSELBEGRIFFE]
 
 Bitte:
-1. Sammeln Sie je PICOC-Element (Population, Intervention/Interest, Comparison, Outcome, Context) mindestens drei englische Synonyme, verwandte Begriffe, Akronyme und Schreibweisen — soweit aus den Angaben ableitbar; sonst Vorschläge als Hypothese kennzeichnen.
-2. Markieren Sie mehrdeutige Begriffe und schlagen Sie Einengungen vor.
-3. Geben Sie eine kompakte Übersicht (z. B. Tabelle: PICOC-Bereich | Begriffe DE/EN).
+1. Sammle je PICOC-Element (Population, Intervention/Interest, Comparison, Outcome, Context) mindestens drei englische Synonyme, verwandte Begriffe, Akronyme und Schreibweisen — soweit aus den Angaben ableitbar; sonst Vorschläge als Hypothese kennzeichnen.
+2. Markiere mehrdeutige Begriffe und schlage Einengungen vor.
+3. Gib eine kompakte Übersicht (z. B. Tabelle: PICOC-Bereich | Begriffe DE/EN).
 
 Wichtig: Nicht erfinden, was nicht aus dem Kontext folgt — Lücken explizit benennen.`,
       toolHref: "https://www.perplexity.ai/",
@@ -112,7 +112,7 @@ Wichtig: Nicht erfinden, was nicht aus dem Kontext folgt — Lücken explizit be
       id: "rq-refine-slr-fit",
       title: "Gesamtpaket, PICOC und SLR-Tauglichkeit",
       description: "Leitfrage, Unterfragen, Begriffe und PICOC-Stichpunkte — inkl. Prüfung auf Klarheit und Machbarkeit.",
-      prompt: `Sie sind Expert:in für systematische Literaturübersichten.
+      prompt: `Du bist Expert:in für systematische Literaturübersichten.
 
 Titel der Recherche (falls vorhanden):
 [THEMA / KONTEXT]
@@ -132,7 +132,7 @@ Unterfragen / Teilziele:
 Schlüsselbegriffe:
 [SCHLUESSELBEGRIFFE]
 
-Bitte prüfen Sie zuerst PICOC:
+Bitte prüfe zuerst PICOC:
 1. Sind Population, Intervention/Interest, Comparison, Outcome und Context in Leitfrage und Begleittexten erkennbar bzw. bewusst eingegrenzt?
 2. Wo fehlt Abgrenzung oder Operationalisierung?
 
@@ -150,7 +150,7 @@ Abschließend:
       id: "rq-refine-finer",
       title: "Leitfrage schärfen (FINER / Machbarkeit)",
       description: "FINER und Formulierung — mit Bezug zu Titel und PICOC-Stichpunkten.",
-      prompt: `Sie sind Expert:in für systematische Literaturübersichten.
+      prompt: `Du bist Expert:in für systematische Literaturübersichten.
 
 Titel der Recherche:
 [THEMA / KONTEXT]
@@ -164,7 +164,7 @@ Kontext / Ziel (Unterfragen, Stichworte):
 Meine aktuelle Leitforschungsfrage:
 [LEITFRAGE]
 
-Bitte bewerten Sie die Frage anhand von FINER (Feasible, Interesting, Novel, Ethical, Relevant) kurz je Kriterium.
+Bitte bewerte die Frage anhand von FINER (Feasible, Interesting, Novel, Ethical, Relevant) kurz je Kriterium.
 
 Danach:
 1. Stärken und Schwächen der Formulierung (Präzision, Messbarkeit, Abgrenzung) in Bezug auf PICOC.
@@ -179,7 +179,7 @@ Bitte knapp, aber mit konkreten Formulierungsvorschlägen.`,
       id: "rq-refine-align",
       title: "Unterfragen und Schlüsselbegriffe abstimmen",
       description: "Konsistenz mit Leitfrage und PICOC-Logik.",
-      prompt: `Sie unterstützen bei der Abstimmung von Unterfragen und Schlüsselbegriffen für eine SLR.
+      prompt: `Du unterstützt bei der Abstimmung von Unterfragen und Schlüsselbegriffen für eine SLR.
 
 Leitforschungsfrage:
 [LEITFRAGE]
@@ -194,9 +194,9 @@ PICOC-Stichpunkte:
 [PICOC-ELEMENTE]
 
 Bitte:
-1. Ordnen Sie Unterfragen und Begriffe den PICOC-Bereichen zu und zeigen Sie Überschneidungen oder Redundanzen.
-2. Schlagen Sie eine konsolidierte Liste von Unterfragen (max. 6) vor.
-3. Strukturieren Sie die Schlüsselbegriffe so, dass sie Leitfrage und Unterfragen logisch abdecken (inkl. Synonyme je PICOC-Bereich, soweit möglich).
+1. Ordne Unterfragen und Begriffe den PICOC-Bereichen zu und zeige Überschneidungen oder Redundanzen.
+2. Schlage eine konsolidierte Liste von Unterfragen (max. 6) vor.
+3. Strukturiere die Schlüsselbegriffe so, dass sie Leitfrage und Unterfragen logisch abdecken (inkl. Synonyme je PICOC-Bereich, soweit möglich).
 
 Deutsch, mit klarer Liste am Ende.`,
       toolHref: "https://chat.openai.com/",
@@ -239,12 +239,12 @@ Ausschlusskriterien:
 [AUSSCHLUSS]
 
 Bitte:
-1. Schlagen Sie geeignete wissenschaftliche Datenbanken und ergänzende Quellen vor und begründen Sie knapp (fachlich prüfen, datenbankspezifisch anpassen).
-2. Ergänzen oder verbessern Sie Synonyme je PICOC-relevantem Konzept: mindestens drei englische Synonyme, verwandte Begriffe, Akronyme, Schreibweisen und Variationen pro Konzept — konsistent zu meinen Angaben oben.
-3. Formulieren oder verbessern Sie einen Booleschen Suchstring (AND/OR/NOT, Klammern, Trunkierung *, Phrasen, ggf. Feldcodes nur als allgemeine Hinweise).
-4. Formulieren oder verbessern Sie Ein- und Ausschlusskriterien dokumentierbar und passend zur Leitfrage.
-5. Prüfen Sie den Suchstring orientierend an PRESS: Passt er zur PICOC-Frage? Operatoren und Nähe sinnvoll? Subject Headings / Schlagwörter bedacht? Freitext/Synonyme/DE-EN? Rechtschreibung und Syntax? Limits/Filter begründet?
-6. Nennen Sie Sensitivität vs. Spezifität und was ich im Anhang festhalten sollte.
+1. Schlage geeignete wissenschaftliche Datenbanken und ergänzende Quellen vor und begründe knapp (fachlich prüfen, datenbankspezifisch anpassen).
+2. Ergänze oder verbessere Synonyme je PICOC-relevantem Konzept: mindestens drei englische Synonyme, verwandte Begriffe, Akronyme, Schreibweisen und Variationen pro Konzept — konsistent zu meinen Angaben oben.
+3. Formuliere oder verbessere einen Booleschen Suchstring (AND/OR/NOT, Klammern, Trunkierung *, Phrasen, ggf. Feldcodes nur als allgemeine Hinweise).
+4. Formuliere oder verbessere Ein- und Ausschlusskriterien dokumentierbar und passend zur Leitfrage.
+5. Prüfe den Suchstring orientierend an PRESS: Passt er zur PICOC-Frage? Operatoren und Nähe sinnvoll? Subject Headings / Schlagwörter bedacht? Freitext/Synonyme/DE-EN? Rechtschreibung und Syntax? Limits/Filter begründet?
+6. Nenne Sensitivität vs. Spezifität und was ich im Anhang festhalten sollte.
 
 Ausgabe mit klaren Überschriften; einen Block „Suchstring (Entwurf)“ zum Kopieren am Ende.`,
       toolHref: "https://chat.openai.com/",
@@ -254,7 +254,7 @@ Ausgabe mit klaren Überschriften; einen Block „Suchstring (Entwurf)“ zum Ko
       id: "ss-string-refine",
       title: "Suchstring verfeinern, Synonyme und PRESS prüfen",
       description: "Operatoren, Synonymfeld, Trunkierung und PRESS-Check vor Testläufen.",
-      prompt: `Sie unterstützen bei der Verfeinerung einer Suchstrategie für eine SLR.
+      prompt: `Du unterstützt bei der Verfeinerung einer Suchstrategie für eine SLR.
 
 Bezug aus Schritt 1 — Leitforschungsfrage:
 [LEITFRAGE]
@@ -273,10 +273,10 @@ Einschluss / Ausschluss (Kurz):
 [AUSSCHLUSS]
 
 Bitte:
-1. Schlagen Sie Anpassungen am Suchstring vor (AND/OR/NOT, Trunkierung *, Phrasensuche, Klammerung, ggf. Näheoperatoren nur als Hinweis je Datenbank).
-2. Prüfen Sie die Synonymlisten: fehlen je PICOC-Konzept mindestens drei englische Varianten? Ergänzen Sie vorsichtig.
-3. Gehen Sie die PRESS-Checkliste kurz durch: (1) Übersetzung der Frage in den String, (2) Boolesche/Proximity-Operatoren, (3) Subject Headings / MeSH-ähnliche Begriffe, (4) Freitext/Synonyme/Schreibweisen/DE-EN, (5) Rechtschreibung/Syntax, (6) Limits und Filter.
-4. Skizzieren Sie, wie ich mit schmal/breit testen kann, ohne konkrete Trefferzahlen zu erfinden.
+1. Schlage Anpassungen am Suchstring vor (AND/OR/NOT, Trunkierung *, Phrasensuche, Klammerung, ggf. Näheoperatoren nur als Hinweis je Datenbank).
+2. Prüfe die Synonymlisten: fehlen je PICOC-Konzept mindestens drei englische Varianten? Ergänze vorsichtig.
+3. Gehe die PRESS-Checkliste kurz durch: (1) Übersetzung der Frage in den String, (2) Boolesche/Proximity-Operatoren, (3) Subject Headings / MeSH-ähnliche Begriffe, (4) Freitext/Synonyme/Schreibweisen/DE-EN, (5) Rechtschreibung/Syntax, (6) Limits und Filter.
+4. Skizziere, wie ich mit schmal/breit testen kann, ohne konkrete Trefferzahlen zu erfinden.
 
 Kurz und umsetzbar, deutsch.`,
       toolHref: "https://gemini.google.com/",
@@ -298,12 +298,12 @@ Ausgangslage:
 [TEXTE]
 
 Bitte:
-1. Schlagen Sie 4–8 Hauptkategorien vor, die den Stand der Literatur sinnvoll strukturieren.
+1. Schlage 4–8 Hauptkategorien vor, die den Stand der Literatur sinnvoll strukturieren.
 2. Zu jeder Hauptkategorie 2–5 Unterkategorien (spezifische Aspekte, Methoden, Kontexte).
-3. Kennzeichnen Sie, welche Kategorien sich überschneiden könnten — und wie ich sie trennen oder zusammenführen sollte.
-4. Geben Sie eine knappe Begründung, warum diese Struktur für eine Matrix (Studien × Unterkategorien) geeignet ist.
+3. Kennzeichne, welche Kategorien sich überschneiden könnten — und wie ich sie trennen oder zusammenführen sollte.
+4. Gib eine knappe Begründung, warum diese Struktur für eine Matrix (Studien × Unterkategorien) geeignet ist.
 
-Ich werde die Vorschläge manuell in meinem ReviewKompass übernehmen und nicht automatisch verifizieren — halten Sie die Terminologie konsistent.`,
+Ich werde die Vorschläge manuell in meinem ReviewKompass übernehmen und nicht automatisch verifizieren — halte die Terminologie konsistent.`,
       toolHref: "https://elicit.org/",
       toolLabel: "Elicit öffnen",
     },
@@ -311,8 +311,8 @@ Ich werde die Vorschläge manuell in meinem ReviewKompass übernehmen und nicht 
       id: "cm-coding",
       title: "Einordnung einer Studie in die Matrix (Textbaustein)",
       description:
-        "Wenn Sie eine konkrete Publikation bewerten: Prompt zur Einordnung in Ihre bestehenden Konzeptbegriffe.",
-      prompt: `Sie helfen bei der konzeptuellen Einordnung einer einzelnen Studie für eine Literatur-Matrix.
+        "Wenn du eine konkrete Publikation bewertest: Prompt zur Einordnung in deine bestehenden Konzeptbegriffe.",
+      prompt: `Du hilfst bei der konzeptuellen Einordnung einer einzelnen Studie für eine Literatur-Matrix.
 
 Meine Unterkategorien (Liste, exakt so verwenden):
 [UNTERKATEGORIEN EINFÜGEN]
@@ -323,8 +323,8 @@ Studie:
 - Kurzbeschreibung oder Abstract (Auszug): […]
 
 Bitte:
-1. Ordnen Sie die Studie relativ zu jeder Unterkategorie ein: vollständig behandelt / am Rande (teilweise) / nicht behandelt — mit jeweils einem kurzen Beleg (Satz aus dem Text oder Paraphrase).
-2. Nennen Sie Unsicherheiten, wenn der Text es nicht eindeutig erlaubt.
+1. Ordne die Studie relativ zu jeder Unterkategorie ein: vollständig behandelt / am Rande (teilweise) / nicht behandelt — mit jeweils einem kurzen Beleg (Satz aus dem Text oder Paraphrase).
+2. Nenne Unsicherheiten, wenn der Text es nicht eindeutig erlaubt.
 
 Wichtig: Keine halluzinierten Zitate — wenn Information fehlt, explizit „nicht ersichtlich“ schreiben.`,
       toolHref: "https://chat.openai.com/",

@@ -248,7 +248,7 @@ export default function ConceptMatrixPage() {
               <li>Hauptkategorien = übergeordnete Konzepte (anschlussfähig an Kategorien aus dem Schritt Analyse und Codierung)</li>
               <li>Unterkategorien = spezifische Aspekte</li>
               <li>Hierarchische Organisation der Literatur</li>
-              <li>Klicken Sie auf eine Matrix-Zelle, um durch die Bewertungsstufen zu wechseln</li>
+              <li>Klicke auf eine Matrix-Zelle, um durch die Bewertungsstufen zu wechseln</li>
             </ul>
           </div>
         </div>
@@ -519,7 +519,7 @@ export default function ConceptMatrixPage() {
             value={data.gapNotes}
             onChange={(e) => updateData((current) => ({ ...current, gapNotes: e.target.value }))}
             className="min-h-[130px] w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm outline-none ring-0 placeholder:text-slate-400 focus:border-orange-300"
-            placeholder="Notieren Sie hier identifizierte Forschungslücken, ungeklärte Fragen oder Bereiche für zukünftige Forschung..."
+            placeholder="Notiere hier identifizierte Forschungslücken, ungeklärte Fragen oder Bereiche für zukünftige Forschung..."
           />
         </div>
       </section>

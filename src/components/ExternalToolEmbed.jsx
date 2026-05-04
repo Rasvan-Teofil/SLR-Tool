@@ -16,7 +16,7 @@ export default function ExternalToolEmbed({
   children,
   stateSyncNote,
   openInNewTabLabel = "PRISMA-Tool in neuem Tab öffnen",
-  fallbackHint = "Die Einbettung kann von Ihrem Browser oder von Sicherheitsregeln der Zielseite blockiert werden.",
+  fallbackHint = "Die Einbettung kann von deinem Browser oder von Sicherheitsregeln der Zielseite blockiert werden.",
   fallbackActionLabel = "Nur Link anzeigen (Einbettung funktioniert hier nicht)",
   backToEmbedLabel = "Einbettung erneut versuchen",
   className = "",

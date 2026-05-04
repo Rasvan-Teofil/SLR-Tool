@@ -45,7 +45,7 @@ export default function StepNavigation() {
           <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">SLR-Fortschritt</p>
           <p className="truncate text-xs font-semibold text-slate-800 sm:text-sm">
             {isPrelude ? (
-              <>Start — Vorüberlegung (noch kein Arbeitsschritt 1–5)</>
+              <>Start</>
             ) : isResources ? (
               <>Referenz (ohne Arbeitsschritt): {WORKSHOP_STEPS[currentIndex]?.label}</>
             ) : (

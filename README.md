@@ -84,4 +84,4 @@ Ohne Backend, ohne Vercel Postgres.
 
 ## Hinweise
 
-Inhalte und Methodik (Webster & Watson, PRISMA-Felder) dienen der strukturierten Arbeit; kein Ersatz für offizielle PRISMA-Reporting-Pflichten oder Prüfungsvorgaben Ihrer Hochschule.
+Inhalte und Methodik (Webster & Watson, PRISMA-Felder) dienen der strukturierten Arbeit; kein Ersatz für offizielle PRISMA-Reporting-Pflichten oder Prüfungsvorgaben deiner Hochschule.

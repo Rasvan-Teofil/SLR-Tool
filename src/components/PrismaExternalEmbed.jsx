@@ -11,8 +11,8 @@ export default function PrismaExternalEmbed() {
         stateSyncNote="Hinweis: Änderungen im eingebetteten Tool werden nicht automatisch in diesem Arbeitsblatt gespeichert."
       >
         <p className="text-xs leading-relaxed text-slate-600">
-          Hier ist das PRISMA-Flowdiagramm-Tool von ESTech eingebettet. Sie können es nutzen, um das Diagramm wie in der
-          App auf shinyapps.io direkt in Ihrer Suchstrategie zu bearbeiten.
+          Hier ist das PRISMA-Flowdiagramm-Tool von ESTech eingebettet. Du kannst es nutzen, um das Diagramm wie in der
+          App auf shinyapps.io direkt in deiner Suchstrategie zu bearbeiten.
         </p>
       </ExternalToolEmbed>
     </SectionCard>

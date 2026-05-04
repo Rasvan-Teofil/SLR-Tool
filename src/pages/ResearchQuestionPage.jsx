@@ -36,7 +36,7 @@ export default function ResearchQuestionPage() {
       <div className="mb-6 space-y-6">
         <InfoBox title="PICOC-Framework für die Forschungsfrage">
           <p className="mb-3 text-sm text-slate-700">
-            Orientierung als Checkliste — Sie können Stichpunkte auch im optionalen Feld unten festhalten:
+            Orientierung als Checkliste — du kannst Stichpunkte auch im optionalen Feld unten festhalten:
           </p>
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
             <li>
@@ -61,21 +61,21 @@ export default function ResearchQuestionPage() {
             </li>
           </ul>
           <p className="mt-3 text-sm text-slate-600">
-            Nehmen Sie sich ca. 15 Minuten Zeit, um daraus eine erste Leitforschungsfrage abzuleiten.
+            Nimm dir ca. 15 Minuten Zeit, um daraus eine erste Leitforschungsfrage abzuleiten.
           </p>
         </InfoBox>
 
-        <SectionCard title="Titel Ihrer Recherche">
+        <SectionCard title="Titel deiner Recherche">
           <p className="mb-2 text-sm text-slate-600">
             Dieser Name erscheint als Hauptüberschrift in der Ergebnisübersicht (Druck/PDF) und über der Konzeptmatrix
-            — anstelle des Platzhalters „Ihr Forschungsthema“.
+            — anstelle des Platzhalters „dein Forschungsthema“.
           </p>
           <input
             type="text"
             value={reportTitle}
             onChange={(e) => updateConceptMatrix({ title: e.target.value })}
             className={fieldClass}
-            placeholder="z. B. Kurztitel oder Thema Ihrer SLR"
+            placeholder="z. B. Kurztitel oder Thema deiner SLR"
             autoComplete="off"
           />
         </SectionCard>
@@ -99,7 +99,7 @@ export default function ResearchQuestionPage() {
             onChange={(e) => updateResearchQuestion({ firstIdea: e.target.value })}
             rows={3}
             className={`${fieldClass} mt-1`}
-            placeholder="Was möchten Sie grob untersuchen, bevor die Leitfrage feststeht?"
+            placeholder="Was möchtest du grob untersuchen, bevor die Leitfrage feststeht?"
           />
         </SectionCard>
 
@@ -128,7 +128,7 @@ export default function ResearchQuestionPage() {
             onChange={(e) => updateResearchQuestion({ subQuestions: e.target.value })}
             rows={4}
             className={fieldClass}
-            placeholder="Welche Aspekte möchten Sie zusätzlich klären?"
+            placeholder="Welche Aspekte möchtest du zusätzlich klären?"
           />
         </SectionCard>
 

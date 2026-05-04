@@ -67,7 +67,7 @@ export default function PrismaDiagramImportCard() {
     <SectionCard title="PRISMA-Diagramm hochladen">
       <div className="space-y-3 text-sm text-slate-700">
         <p className="text-xs leading-relaxed text-slate-600">
-          Laden Sie hier das <strong>exportierte Diagramm</strong> aus dem externen PRISMA-Tool hoch (z. B. PNG-Export).
+          Lade hier das <strong>exportierte Diagramm</strong> aus dem externen PRISMA-Tool hoch (z. B. PNG-Export).
           Es erscheint in der Ergebnisübersicht und im Druck/PDF-Export des Berichts. Aktuell:{" "}
           <strong>PNG</strong>, max. {formatMaxSizeLabel()} (wegen Browser-Speicher).
         </p>

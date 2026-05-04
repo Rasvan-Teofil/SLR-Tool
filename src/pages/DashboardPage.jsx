@@ -63,7 +63,7 @@ export default function DashboardPage() {
       <div className="mb-6 flex flex-col gap-4 print:hidden sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Schritt 5 – Ergebnisübersicht</p>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Ihre SLR-Ergebnisübersicht</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Deine SLR-Ergebnisübersicht</h1>
           <p className="mt-1 text-sm text-slate-600">
             Zum Nachschlagen beim Schreiben und Reflektieren. Als PDF über den Browser-Druckdialog speichern.
           </p>
@@ -186,7 +186,7 @@ export default function DashboardPage() {
 
         <ReportSection id="konzeptmatrix" title="4. Konzeptmatrix" allowPageBreak>
           <p className="mb-4 text-sm leading-relaxed text-slate-600 print:hidden">
-            Vollständige Übersicht Ihrer Bewertungen (Webster &amp; Watson): Ideal, um Abdeckung und Lücken direkt am
+            Vollständige Übersicht deiner Bewertungen (Webster &amp; Watson): Ideal, um Abdeckung und Lücken direkt am
             Raster zu erkennen — ohne in den Bearbeitungsmodus wechseln zu müssen.
           </p>
           <p className="mb-2 hidden text-xs text-slate-700 print:block">
@@ -237,7 +237,7 @@ export default function DashboardPage() {
 
           {conceptMatrix.gapNotes ? (
             <div className="mt-4">
-              <SectionCard title="Ihre Notizen zu Forschungslücken">
+              <SectionCard title="Deine Notizen zu Forschungslücken">
                 <Prose emptyText="">{conceptMatrix.gapNotes}</Prose>
               </SectionCard>
             </div>

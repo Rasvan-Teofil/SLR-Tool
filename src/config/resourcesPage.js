@@ -222,10 +222,88 @@ export const resourcesPageConfig = {
 
   references: [
     {
+      id: "bramer-searching",
+      title:
+        "Bramer, W. M., De Jonge, G. B., Rethlefsen, M. L., Mast, F., & Kleijnen, J. (2018). A systematic approach to searching: An efficient and complete method to develop literature searches.",
+      note: "Methodischer Leitfaden zur Entwicklung vollständiger und effizienter Suchstrategien.",
+      href: "https://doi.org/10.5195/jmla.2018.283",
+    },
+    {
+      id: "brereton-slr-software",
+      title:
+        "Brereton, P., Kitchenham, B. A., Budgen, D., Turner, M., & Khalil, M. (2007). Lessons from applying the systematic literature review process within the software engineering domain.",
+      note: "Erfahrungen mit SLR-Prozessen im Software-Engineering; nützlich für Planung, Screening und Dokumentation.",
+      href: "https://doi.org/10.1016/j.jss.2006.07.009",
+    },
+    {
+      id: "research-question-framework",
+      title: "Klingemann Library LibGuides. (o. J.). Define your research question & select framework.",
+      note: "Praxisorientierte Orientierung zur Entwicklung von Forschungsfragen und passenden Frameworks.",
+      href: "https://libguides.berlin-international.de/books/research-skills/page/define-your-research-question-select-framework",
+    },
+    {
+      id: "heil-literaturrecherche",
+      title: "Heil, E. A. (2021). Methode der systematischen Literaturrecherche.",
+      note: "Deutschsprachige Einführung in Vorgehen und Dokumentation systematischer Literaturrecherche.",
+      href: "https://doi.org/10.22029/jlupub-17189",
+    },
+    {
+      id: "hosseini-research-questions",
+      title:
+        "Hosseini, M.-S., Jahanshahlou, F., Akbarzadeh, M. A., Zarei, M., & Vaez-Gharamaleki, Y. (2024). Formulating research questions for evidence-based studies.",
+      note: "Orientierung zur Formulierung prüfbarer Forschungsfragen für evidenzbasierte Studien.",
+      href: "https://doi.org/10.1016/j.glmedi.2023.100046",
+    },
+    {
+      id: "liberati-prisma-2009",
+      title:
+        "Liberati, A. et al. (2009). The PRISMA statement for reporting systematic reviews and meta-analyses: Explanation and elaboration.",
+      note: "Erläuterung und Ausarbeitung zum PRISMA-Statement 2009.",
+      href: "https://doi.org/10.1371/journal.pmed.1000100",
+    },
+    {
+      id: "mayring-qualitative-inhaltsanalyse",
+      title: "Mayring, P. (2022). Qualitative Inhaltsanalyse: Grundlagen und Techniken (13. Aufl.). Beltz.",
+      note: "Grundlagenwerk für qualitative Inhaltsanalyse und regelgeleitete Kategorienbildung.",
+      href: "https://www.beltz.de/fachmedien/paedagogik/produkte/details/48632-qualitative-inhaltsanalyse.html",
+    },
+    {
+      id: "mcgowan-press",
+      title:
+        "McGowan, J., Sampson, M., Salzwedel, D. M., Cogo, E., Foerster, V., & Lefebvre, C. (2016). PRESS peer review of electronic search strategies: 2015 guideline statement.",
+      note: "Guideline zur Peer-Review-Prüfung elektronischer Suchstrategien.",
+      href: "https://doi.org/10.1016/j.jclinepi.2016.01.021",
+    },
+    {
+      id: "rethlefsen-prisma-s",
+      title:
+        "Rethlefsen, M. L. et al. (2021). PRISMA-S: An extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.",
+      note: "Erweiterung zur transparenten Berichterstattung von Suchstrategien in systematischen Reviews.",
+      href: "https://doi.org/10.1186/s13643-020-01542-z",
+    },
+    {
+      id: "elsevier-finer",
+      title: "Elsevier Author Services. (2020). FINER: A research framework.",
+      note: "Kurzüberblick zu FINER als Prüfraster für Forschungsfragen.",
+      href: "https://scientific-publishing.webshop.elsevier.com/research-process/finer-research-framework/",
+    },
+    {
+      id: "trifu-prisma",
+      title: "Trifu, A. (2022). Applying the PRISMA method.",
+      note: "Anwendungsbeispiel zur PRISMA-orientierten Darstellung eines Review-Prozesses.",
+      href: "https://doi.org/10.1051/matecconf/202235400052",
+    },
+    {
+      id: "covidence-screening-guide",
+      title: "Covidence. (2024). A practical guide: Screening for Systematic Reviews.",
+      note: "Praxisleitfaden für Titel-/Abstract- und Volltext-Screening.",
+      href: "https://www.covidence.org/wp-content/uploads/2025/05/A-practical-guide-Screening-for-Systematic-Reviews.pdf",
+    },
+    {
       id: "ww",
       title: "Webster, J., & Watson, R. T. (2002). Analyzing the past to prepare for the future: Writing a literature review.",
       note: "Klassische Grundlage für thematische / Konzept-Matrix-Ansätze in der IS-Literatur.",
-      href: "https://doi.org/10.2307/4132338",
+      href: "https://doi.org/10.2307/4132319",
     },
     {
       id: "prisma2020",
@@ -235,9 +313,10 @@ export const resourcesPageConfig = {
     },
     {
       id: "tranfield",
-      title: "Tranfield, D., Denyer, D., & Smart, P. (2003). Towards a methodology for developing evidence-informed management knowledge.",
+      title:
+        "Tranfield, D., Denyer, D., & Smart, P. (2003). Towards a Methodology for Developing Evidence-Informed Management Knowledge by Means of Systematic Review.",
       note: "Häufig zitiert für strukturierte Literaturübersichten in der Managementforschung.",
-      href: "https://doi.org/10.1080/0020754022000032577",
+      href: "https://josephmahoney.web.illinois.edu/BADM504_Fall%202013/6_Tranfield,%20Denyer%20and%20Smart%20(2003).pdf",
     },
   ],
 };
